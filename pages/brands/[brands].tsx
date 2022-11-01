@@ -88,33 +88,111 @@ function Brands() {
 
               {/* filter box (isToggle == 1) */}
               <div className="m-0 p-0 pb-[24px] box-border">
-                <ul className="m-0 p-0 max-h-[315px] overflow-y-hidden box-border list-none">
+                {/* 1st ul */}
+                <ul className="m-0 p-0 max-h-[315px] text-[14px] overflow-y-hidden box-border list-none">
                   <li className="list-none">
                     <label className="relative flex items-center cursor-pointer">
                       <input
-                        className="w-[0.9px]"
+                        className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
                         type="checkbox"
-                        value="신발"
+                        name="category1"
+                        value="shoes"
                       />
-                      {/*  <svg
+                      <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth="1"
-                        className="w-[12px]">
+                        stroke="white"
+                        strokeWidth="1.3"
+                        className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center">
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           d="M4.5 12.75l6 6 9-13.5"
                         />
-                      </svg> */}
+                      </svg>
                       <span className="pl-2">신발</span>
                     </label>
-                    {/*  <a className="text-[14px] tracking-[-.21px] no-underline items-start flex">
-                      <></>
-                    </a>
-                     */}
+
+                    {/* 2nd ul */}
+
+                    <ul className="m-0 pt-[16px] pb-[6px] pr-[25px] text-[14px] list-none">
+                      {/* 2 - 1 li */}
+                      <li className="m-0 p-0">
+                        <label className="tracking-[-.21px] flex items-start">
+                          <input
+                            className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
+                            type="checkbox"
+                            name="shoes"
+                            value="sneakers"
+                          />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="white"
+                            strokeWidth="1.3"
+                            className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center">
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M4.5 12.75l6 6 9-13.5"
+                            />
+                          </svg>
+                          <span className="pl-2 text-[14px]">스니커즈</span>
+                        </label>
+                      </li>
+                      {/* 2 - 2 li */}
+                      <li className="m-0 p-0">
+                        <label className="tracking-[-.21px] flex items-start">
+                          <input
+                            className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
+                            type="checkbox"
+                            name="shoes"
+                            value="lopper"
+                          />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="white"
+                            strokeWidth="1.3"
+                            className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center">
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M4.5 12.75l6 6 9-13.5"
+                            />
+                          </svg>
+                          <span className="pl-2 text-[14px]">로퍼/플랫</span>
+                        </label>
+                      </li>
+                      {/* 2 - 3 li */}
+                      <li className="m-0 p-0">
+                        <label className="tracking-[-.21px] flex items-start">
+                          <input
+                            className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
+                            type="checkbox"
+                            name="shoes"
+                            value="boots"
+                          />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="white"
+                            strokeWidth="1.3"
+                            className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center">
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M4.5 12.75l6 6 9-13.5"
+                            />
+                          </svg>
+                          <span className="pl-2 text-[14px]">부츠</span>
+                        </label>
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </div>
