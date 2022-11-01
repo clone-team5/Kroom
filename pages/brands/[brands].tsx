@@ -1,8 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import { cls } from "../../utils";
 import { Item } from "../../types";
 
+interface FilterStates {
+  isCategory: Boolean;
+  isBrand: Boolean;
+  isGender: Boolean;
+  isCollect: Boolean;
+  isSize: Boolean;
+  isPrice: Boolean;
+}
+
 function Brands() {
-  const [isToggle, setIsToggle] = useState();
+  const [FilterStates, SetFilterStates] = useState<FilterStates>({
+    isCategory: false,
+    isBrand: false,
+    isGender: false,
+    isCollect: false,
+    isSize: false,
+    isPrice: false,
+  });
+  /*  const [isBrand, SetisBrand] = useState(false);
+  const [isGender, SetisGender] = useState(false);
+  const [isCollect, SetisCollect] = useState(false);
+  const [isSize, SetisSize] = useState(false);
+  const [isPrice, SetisPrice] = useState(false); */
+
+  /* 필터 값을 보낼때 query로 보냄 */
+
+  /* radio 는 취소가 안되므로 취소가 가능한 checkbox
+  state 값에 하나가 들어가고 checkbox == 1 / checkbox == 0 setState false 
+  key 값으로 통일 */
 
   return (
     /* Total Container */
@@ -48,7 +76,7 @@ function Brands() {
       {/* Bottom (filter + betweenBtn + items) */}
       <div className="flex box-border relative my-0 mx-auto">
         {/* filter container */}
-        <div className="w-[210px] mr-[10px] pr-[10px] box-border justify-between items-center cursor-pointer">
+        <form className="w-[210px] mr-[10px] pr-[10px] box-border justify-between items-center cursor-pointer">
           <div className="m-0 pt-[23px] pb-[15px] text-[#222222] text-[14px] font-bold justify-between items-center">
             필터
           </div>
@@ -123,8 +151,9 @@ function Brands() {
                           <input
                             className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
                             type="checkbox"
-                            name="shoes"
+                            name="sneakers"
                             value="sneakers"
+                            checked
                           />
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -148,7 +177,7 @@ function Brands() {
                           <input
                             className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
                             type="checkbox"
-                            name="shoes"
+                            name="lopper"
                             value="lopper"
                           />
                           <svg
@@ -173,7 +202,7 @@ function Brands() {
                           <input
                             className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
                             type="checkbox"
-                            name="shoes"
+                            name="boots"
                             value="boots"
                           />
                           <svg
@@ -198,7 +227,7 @@ function Brands() {
               </div>
             </div>
           ))}
-        </div>
+        </form>
         {/* betweenBtn + items */}
         <div className="flex-1 box-border m-0 p-0">
           <div className="pt-[16px] px-[10px] justify-between flex">
@@ -282,3 +311,140 @@ function Brands() {
 }
 
 export default Brands;
+
+/*  */
+interface GroupType {
+  title: string;
+  subTitle: string;
+  body: SubMenu[];
+}
+interface SubMenu {
+  name: string;
+  isClick: boolean;
+  sub?: SubMenu[];
+}
+const mygroup: Array<GroupType> = [
+  {
+    title: "카테고리",
+    subTitle: "모든 카테고리",
+    body: [
+      {
+        name: "신발",
+        isClick: false,
+        sub: [
+          { name: "스니커스", isClick: false },
+          { name: "로퍼", isClick: false },
+          { name: "부츠", isClick: false },
+        ],
+      },
+      {
+        name: "의류",
+        isClick: false,
+        sub: [
+          { name: "자켓", isClick: false },
+          { name: "후드", isClick: false },
+          { name: "스웨트셔츠", isClick: false },
+          { name: "니트웨어", isClick: false },
+          { name: "긴팔 티셔츠", isClick: false },
+          { name: "반팔 티셔츠", isClick: false },
+          { name: "", isClick: false },
+          { name: "", isClick: false },
+          { name: "", isClick: false },
+          { name: "", isClick: false },
+        ],
+      },
+    ],
+  },
+  {
+    title: "카테고리",
+    subTitle: "모든 카테고리",
+    body: [
+      {
+        name: "신발",
+        isClick: false,
+        sub: [
+          { name: "스니커스", isClick: false },
+          { name: "로퍼", isClick: false },
+          { name: "부츠", isClick: false },
+        ],
+      },
+      {
+        name: "의류",
+        isClick: false,
+        sub: [
+          { name: "", isClick: false },
+          { name: "", isClick: false },
+        ],
+      },
+    ],
+  },
+  {
+    title: "카테고리",
+    subTitle: "모든 카테고리",
+    body: [
+      {
+        name: "신발",
+        isClick: false,
+        sub: [
+          { name: "스니커스", isClick: false },
+          { name: "로퍼", isClick: false },
+          { name: "부츠", isClick: false },
+        ],
+      },
+      {
+        name: "의류",
+        isClick: false,
+        sub: [
+          { name: "", isClick: false },
+          { name: "", isClick: false },
+        ],
+      },
+    ],
+  },
+  {
+    title: "카테고리",
+    subTitle: "모든 카테고리",
+    body: [
+      {
+        name: "신발",
+        isClick: false,
+        sub: [
+          { name: "스니커스", isClick: false },
+          { name: "로퍼", isClick: false },
+          { name: "부츠", isClick: false },
+        ],
+      },
+      {
+        name: "의류",
+        isClick: false,
+        sub: [
+          { name: "", isClick: false },
+          { name: "", isClick: false },
+        ],
+      },
+    ],
+  },
+  {
+    title: "카테고리",
+    subTitle: "모든 카테고리",
+    body: [
+      {
+        name: "신발",
+        isClick: false,
+        sub: [
+          { name: "스니커스", isClick: false },
+          { name: "로퍼", isClick: false },
+          { name: "부츠", isClick: false },
+        ],
+      },
+      {
+        name: "의류",
+        isClick: false,
+        sub: [
+          { name: "", isClick: false },
+          { name: "", isClick: false },
+        ],
+      },
+    ],
+  },
+];
