@@ -102,7 +102,8 @@ const Join = () => {
         "w-[1200px] mx-auto px-10 transition-all duration-300",
         navStates.isFadeout ? "opacity-0" : "opacity-100"
       )}
-      onTransitionEnd={handleTransitionEnd}>
+      onTransitionEnd={handleTransitionEnd}
+    >
       <div
         className="w-36 h-36 bg-red-500"
         onClick={async () => {
@@ -111,17 +112,19 @@ const Join = () => {
               headers: { "Content-type": "application/json" },
               method: "POST",
               body: JSON.stringify({
-                email: "1234@gmail.com",
+                email: "12345@gmail.com",
                 password: "qwe123qwe",
                 nickname: "mizi",
               }),
             })
           ).json();
           console.log("data", data);
-        }}></div>
+        }}
+      ></div>
       <form
         className="w-[400px] h-[756px] mx-auto pt-[60px] pb-40"
-        onSubmit={handleSubmit(onValid, onInValid)}>
+        onSubmit={handleSubmit(onValid, onInValid)}
+      >
         <div className="h-full">
           <h2 className="text-center pb-[42px] text-[32px]">회원가입</h2>
           <div className="pt-[10px] pb-[14px] h-20">
@@ -129,7 +132,8 @@ const Join = () => {
               className={cls(
                 "text-[13px] transition-colors",
                 errors.email ? "text-red-500" : "text-gray-800"
-              )}>
+              )}
+            >
               이메일 주소*
             </h3>
             <input
@@ -152,7 +156,8 @@ const Join = () => {
               className={cls(
                 "text-[13px] transition-colors",
                 errors.password ? "text-red-500" : "text-gray-800"
-              )}>
+              )}
+            >
               비밀번호*
             </h3>
             <input
@@ -175,7 +180,8 @@ const Join = () => {
               className={cls(
                 "text-[13px] transition-colors",
                 errors.password ? "text-red-500" : "text-gray-800"
-              )}>
+              )}
+            >
               신발 사이즈
             </h3>
             <label className="relative">
@@ -265,7 +271,8 @@ const Join = () => {
               className={cls(
                 "block w-full text-white h-full rounded-xl font-semibold",
                 isValid ? "bg-gray-900" : "bg-gray-200"
-              )}>
+              )}
+            >
               가입하기
             </button>
           </div>

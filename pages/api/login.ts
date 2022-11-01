@@ -21,10 +21,10 @@ export default async function handler(
 
     const result = await client.user.create({
       data: {
-        email: email + "qw",
+        email: email,
         identifier: "testtest",
         password: password,
-        nickname: nickname + "qw",
+        nickname: nickname,
         profileImg: "../test",
       },
     });
