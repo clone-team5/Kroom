@@ -7,6 +7,40 @@ interface Props {
   pictures: Picture[];
 }
 
+interface GroupType {
+  title: string;
+  subTitle: string;
+  body: SubMenu[];
+}
+interface SubMenu {
+  name: string;
+  isClick: boolean;
+  sub?: SubMenu[];
+}
+const mygroup: GroupType = {
+  title: "카테고리",
+  subTitle: "모든 카테고리",
+  body: [
+    {
+      name: "신발",
+      isClick: false,
+      sub: [
+        { name: "스니커스", isClick: false },
+        { name: "로퍼", isClick: false },
+        { name: "부츠", isClick: false },
+      ],
+    },
+    {
+      name: "의류",
+      isClick: false,
+      sub: [
+        { name: "", isClick: false },
+        { name: "", isClick: false },
+      ],
+    },
+  ],
+};
+
 const Carousel = ({ pictures }: Props) => {
   const [selected, setSelected] = useState(0);
   const [dragState, setDragState] = useState({
@@ -14,6 +48,7 @@ const Carousel = ({ pictures }: Props) => {
     isDragging: false,
     isFlipped: false,
   });
+  const [grabbing, setGrabbing] = useState(false);
   const pictureCycler = cycler(pictures.length);
   const handleChangeLeft = () => {
     setSelected((cur) => pictureCycler(cur - 1));
@@ -26,12 +61,15 @@ const Carousel = ({ pictures }: Props) => {
       console.log(selected);
       console.log("event.target : ", event);
     };
+
   const nextImage = useCallback(() => {
     setSelected((cur) => pictureCycler(cur + 1));
   }, []);
   useEffect(() => {
-    setInterval(nextImage, 5000);
+    const intervalId = setInterval(nextImage, 5000);
+    return () => clearInterval(intervalId);
   }, []);
+
   const handleDrag = (e: MouseEvent<HTMLElement>) => {
     if (dragState.isFlipped) return;
     if (e.nativeEvent.screenX - dragState.startPoint < -50) {
@@ -56,6 +94,7 @@ const Carousel = ({ pictures }: Props) => {
     }));
   };
   const handleDragEnd = (e: MouseEvent<HTMLElement>) => {
+    setGrabbing(false);
     setDragState((cur) => ({
       ...cur,
       isDragging: false,
@@ -64,14 +103,23 @@ const Carousel = ({ pictures }: Props) => {
   const handleClickIndicator = (index: number) => () => {
     setSelected(index);
   };
-
+  console.log("grabbing :", grabbing);
   return (
     <div
       onClick={handleClickPicture(selected)}
       className={cls(
         "relative w-full min-h-[480px]",
-        dragState.isDragging ? "cursor-grabbing" : "cursor-pointer" //질문하기 cusor-grabbing 적용하려면?
+        // dragState.isDragging ? "cursor-grabbing" : "cursor-pointer", //질문하기 cusor-grabbing 적용하려면?
+        grabbing ? "cursor-grabbing" : "cursor-pointer"
       )}
+      onMouseDown={() => {
+        setGrabbing(true);
+      }}
+      onMouseUp={() => {
+        console.log("hi");
+        setGrabbing(false);
+      }}
+      onMouseMove={() => {}}
       onDrag={handleDrag}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
