@@ -333,7 +333,7 @@ const mygroup: Array<GroupType> = [
         isClick: false,
         sub: [
           { name: "스니커스", isClick: false },
-          { name: "로퍼", isClick: false },
+          { name: "로퍼/플랫", isClick: false },
           { name: "부츠", isClick: false },
         ],
       },
@@ -347,62 +347,36 @@ const mygroup: Array<GroupType> = [
           { name: "니트웨어", isClick: false },
           { name: "긴팔 티셔츠", isClick: false },
           { name: "반팔 티셔츠", isClick: false },
-          { name: "", isClick: false },
-          { name: "", isClick: false },
-          { name: "", isClick: false },
-          { name: "", isClick: false },
+          { name: "코트", isClick: false },
+          { name: "바지", isClick: false },
+          { name: "반바지", isClick: false },
+        ],
+      },
+      {
+        name: "패션잡화",
+        isClick: false,
+        sub: [
+          { name: "스몰레더", isClick: false },
+          { name: "가방", isClick: false },
+          { name: "모자", isClick: false },
+          { name: "스카프", isClick: false },
         ],
       },
     ],
   },
+
   {
-    title: "카테고리",
+    title: "브랜드",
     subTitle: "모든 카테고리",
     body: [
       {
-        name: "신발",
+        name: "Acne Studios",
         isClick: false,
-        sub: [
-          { name: "스니커스", isClick: false },
-          { name: "로퍼", isClick: false },
-          { name: "부츠", isClick: false },
-        ],
-      },
-      {
-        name: "의류",
-        isClick: false,
-        sub: [
-          { name: "", isClick: false },
-          { name: "", isClick: false },
-        ],
       },
     ],
   },
   {
-    title: "카테고리",
-    subTitle: "모든 카테고리",
-    body: [
-      {
-        name: "신발",
-        isClick: false,
-        sub: [
-          { name: "스니커스", isClick: false },
-          { name: "로퍼", isClick: false },
-          { name: "부츠", isClick: false },
-        ],
-      },
-      {
-        name: "의류",
-        isClick: false,
-        sub: [
-          { name: "", isClick: false },
-          { name: "", isClick: false },
-        ],
-      },
-    ],
-  },
-  {
-    title: "카테고리",
+    title: "성별",
     subTitle: "모든 카테고리",
     body: [
       {
