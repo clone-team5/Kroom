@@ -1,11 +1,13 @@
 import { JoinForm, LoginForm, OptionCreator } from "./types";
 
 export const cls = (...classes: (string | undefined | boolean)[]) =>
-  classes.filter((className) => className).join(" ");
+  classes
+    .filter((className) => className && typeof className === "string")
+    .join(" ");
 
 export const cycler = (cycle: number) => (num: number) =>
   ((num % cycle) + cycle) % cycle;
-  
+
 export const attachComma = (num: number) =>
   num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
