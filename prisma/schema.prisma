@@ -16,10 +16,10 @@ datasource db {
 model User {
   userId    Int     @id @default(autoincrement())
   email     String  @unique
-  identifier String @unique
-  nickname  String @unique
+  identifier String? @unique
+  size      Int
+  nickname  String? @unique
   password  String
-  profileImg String ?
   refreshToken String ?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -38,23 +38,6 @@ model Product {
   pid String
   createdAt DateTime @default(now())
 }
-
-// model Product {
-//   productId Int @id @default(autoincrement())
-//   identifier String @unique
-//   name String
-//   price Int
-//   koeanDesc String?
-//   size Int?
-//   releasedDate DateTime? @default(now())
-//   color String?
-//   likeNumber Int? @default(0)
-//   brand String
-//   category String?
-//   gender String?
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-// }
 
 model Style {
   styleId Int @id @default(autoincrement())

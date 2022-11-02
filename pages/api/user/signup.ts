@@ -1,40 +1,37 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import client from "../../../libs/client";
-
-function makeid(length: number) {
-  var result = "";
-  var characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  var charactersLength = characters.length;
-  for (var i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
+import bcrypt from 'bcryptjs'
+interface bodyTypes {
+    email: string,
+    password: string,
+    size: number
 }
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
-) {
-  console.log(req.body);
-  const { email, nickname, password, confirmPassword } = req.body;
-  const user = await client.user.findUnique({
-    where: { email },
-  });
-  if (password !== confirmPassword) {
-    res.status(400).send("비밀번호를 다시 확인 해주세요.");
-  }
-  if (user) {
-    res.status(400).send("중복된 이메일 입니다.");
-  }
-  await client.user.create({
-    data: {
-      email,
-      nickname,
-      password,
-      identifier: makeid(7),
-    },
-  });
-
-  res.status(200).send("회원가입이 완료 되었습니다.");
+) { 
+    const {email, password, size}:bodyTypes=req.body;
+    
+    try {
+        const user = await client.user.findUnique({
+            where:{email}
+        })
+    
+        if(user){
+            res.status(400).send("중복된 이메일 입니다.")
+        }
+        const encPass = await bcrypt.hash(password, 10);
+        const nickname = email.split("@")[0]
+        await client.user.create({
+            data:{
+                email,
+                nickname,
+                size,
+                password: encPass
+            }
+        })
+        res.status(200).send("회원가입이 완료 되었습니다.")
+    } catch (error) {
+        res.status(400).json(error)
+    }
 }
