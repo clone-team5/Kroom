@@ -10,20 +10,74 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
   referentialIntegrity = "prisma"
-
-  // provider = "mysql"
-  // url      = "mysql://root:Rnjs1996!!d@localhost:3306/clone"
 }
 
 
 model User {
   userId    Int     @id @default(autoincrement())
   email     String  @unique
-  identifier String
+  identifier String @unique
   nickname  String @unique
   password  String
   profileImg String ?
   refreshToken String ?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  comment Comment[]
+  style Style[]
+}
+
+model Product {
+  productId    Int     @id @default(autoincrement())
+  price Int
+  nameEng String
+  brand String
+  nameKr String
+  quickdlivery Boolean
+  imgUrl String   @db.VarChar(500)
+  createdAt DateTime @default(now())
+}
+
+// model Product {
+//   productId Int @id @default(autoincrement())
+//   identifier String @unique
+//   name String
+//   price Int
+//   koeanDesc String?
+//   size Int?
+//   releasedDate DateTime? @default(now())
+//   color String?
+//   likeNumber Int? @default(0)
+//   brand String
+//   category String?
+//   gender String?
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
+
+model Style {
+  styleId Int @id @default(autoincrement())
+  identifier String @unique
+  profileImg String
+  styleImg String
+  hashtag String
+  like Int
+  content String  
+  user User @relation(fields: [userId], references: [identifier],onDelete: Cascade)
+  userId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  comment Comment[]
+}
+
+model Comment {
+  commentId Int @id @default(autoincrement())
+  identifier String @unique
+  comment String
+  user User @relation(fields: [userId], references: [identifier],onDelete: Cascade)
+  userId String
+  style Style @relation(fields: [styleId], references: [identifier],onDelete: Cascade)
+  styleId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
