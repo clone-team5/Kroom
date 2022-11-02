@@ -1,8 +1,22 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { cls } from "../../utils";
 import { Item } from "../../types";
+
+interface NavStates {
+  isFadeout: boolean;
+  to: string;
+}
+
+interface FilterStates {
+  isCategory: Boolean;
+  isBrand: Boolean;
+  isGender: Boolean;
+  isCollect: Boolean;
+  isSize: Boolean;
+  isPrice: Boolean;
+}
 
 /* 1층 */
 interface GroupType {
@@ -122,16 +136,16 @@ const MyGroup: Array<GroupType> = [
   },
 ];
 
-interface FilterStates {
-  isCategory: Boolean;
-  isBrand: Boolean;
-  isGender: Boolean;
-  isCollect: Boolean;
-  isSize: Boolean;
-  isPrice: Boolean;
-}
-
 function Brands() {
+  const { data, isLoading } = useQuery(["products"], async () => {
+    const data = await axios.get(
+      `/api/getProduct?brands=${"Apple"}&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${10}&pageNo=${1}`
+    );
+    const res = data.data;
+    return res;
+  });
+  console.log(data);
+
   const [FilterStates, SetFilterStates] = useState<FilterStates>({
     isCategory: false,
     isBrand: false,
@@ -145,6 +159,8 @@ function Brands() {
   const [isCollect, SetisCollect] = useState(false);
   const [isSize, SetisSize] = useState(false);
   const [isPrice, SetisPrice] = useState(false); */
+
+  const [navStates, setNavStates] = useState({ isFadeout: true, to: "" });
 
   /* 필터 값을 보낼때 query로 보냄 */
 
@@ -352,9 +368,9 @@ function Brands() {
           <div className="mx-[auto] h-auto my-0 p-0 box-border flex justify-between">
             {/* item container */}
             <div>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((e) => (
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((e: any) => (
                 <div
-                  key={e}
+                  key={e.brand}
                   className="w-[25%] mx-0 my-[20px] py-0 px-[10px] box-border align-top inline-block relative transition 0.4s ease-in-out">
                   <div className="bg-[#f4f4f4] rounded-[12px]">
                     <img
@@ -368,7 +384,7 @@ function Brands() {
                       Acne Studios
                     </p>
                     <p className="mt-[2px] text-[13px] leading-4 text-ellipsis">
-                      Acne Studios Mohair Check Scarf Fuchsia Lilac Pink
+                      {e.brand}
                     </p>
                     <p className="mt-[2px] text-[12px] text-[#22222280] leading-4 tracking-[-.06] text-ellipsis">
                       아크네 스튜디오 모헤어 체크 스카프 푸시아 라일락 핑크
@@ -393,36 +409,3 @@ function Brands() {
   );
 }
 export default Brands;
-
-{
-  /* <ul>
-                        {secondFloor.sub.map((thirdFloor) => (
-                            <li className="m-0 p-0" key={thirdFloor.name}>
-                          <label className="tracking-[-.21px] flex items-start">
-                            <input
-                              className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
-                              type="checkbox"
-                              name="sneakers"
-                              value="sneakers"
-                              checked />
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="white"
-                              strokeWidth="1.3"
-                              className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center">
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M4.5 12.75l6 6 9-13.5" />
-                            </svg>
-                          </label>
-                          <span className="pl-2 text-[14px]">{thirdFloor.name}</span>
-                        </li>
-                        )
-                        
-                        )}
-
-                      </ul> */
-}
