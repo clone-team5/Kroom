@@ -20,7 +20,7 @@ export default async function handler(
       throw new Error("아이디 혹은 비밀번호를 입력해 주세요")
     }
     
-   const user = await client.user.findUnique({where:{email}})
+   const user = await client.user.findUnique({where:{email}});
    const identifier = user?.identifier
   /**accessToken 발급 */
   if(identifier == undefined){
