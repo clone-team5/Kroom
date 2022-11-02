@@ -1,5 +1,5 @@
 import { Item } from "../types";
-import { attachComma, cls } from "../utils";
+import { attachComma, cls, colorDice } from "../utils";
 
 interface Props {
   item: Item;
@@ -8,7 +8,10 @@ const ItemCard = ({ item }: Props) => {
   return (
     <div className="w-72 flex-1 my-5 px-3">
       <div className="w-full h-auto">
-        <div className={cls("h-[282px] relative rounded-xl", item.color)}>
+        <div
+          className={cls("h-[282px] relative rounded-xl")}
+          style={{ backgroundColor: colorDice() }}
+        >
           <img className="absolute" src={item.imgUrl} alt="" />
           <a
             className="top-2 right-2 absolute w-8 h-8 flex justify-center items-center text-gray-800"
@@ -30,8 +33,8 @@ const ItemCard = ({ item }: Props) => {
           <div className="leading-3 text-sm pb-0.5 border-b border-b-black inline-block font-bold">
             {item.brand}
           </div>
-          <div className="text-sm mt-[8.5px] mb-0.5">{item.name}</div>
-          {item.isFast ? (
+          <div className="text-sm mt-[8.5px] mb-0.5">{item.nameEng}</div>
+          {item.quickdlivery ? (
             <div className="text-[11px] relative before:top-[4px] before:left-[3.5px] before:content-[''] before:absolute before:block before:h-[15px] before:w-[11px] before:bg-[url(https://kream.co.kr/_nuxt/img/ico-express.8dac9dc.svg)] text-green-400 py-[4.5px] pr-[5.5px] pl-[17px] inline-block">
               빠른배송
             </div>
