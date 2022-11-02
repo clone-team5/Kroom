@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import client from "../../../libs/client";
-";
-
+import bcrypt from 'bcryptjs'
 
 export default async function handler(
   req: NextApiRequest,
@@ -18,14 +17,14 @@ export default async function handler(
             res.status(400).send("중복된 이메일 입니다.")
         }
 
-    
+        const encPass = await bcrypt.hash(password, 10);
         const nickname = email.split("@")[0]
         await client.user.create({
             data:{
                 email,
                 nickname,
                 size,
-                password
+                password: encPass
             }
         })
         res.status(200).send("회원가입이 완료 되었습니다.")

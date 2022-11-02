@@ -1,5 +1,4 @@
 import { NextRequest, NextFetchEvent, NextResponse } from "next/server";
-import client from "../client";
 import jwt from "jsonwebtoken"
 import 'dotenv/config'
 
@@ -34,4 +33,6 @@ export async function middleware(
       { status: 401 },
     );
   }
+
+  
 }
