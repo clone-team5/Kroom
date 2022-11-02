@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { cls } from "../../utils";
 import { Item } from "../../types";
 
+/* interface */
 interface NavStates {
   isFadeout: boolean;
   to: string;
