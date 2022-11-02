@@ -12,7 +12,7 @@ const Main = () => {
   /* ~/api/getproduct?brands=${}&priceNum=${}&quickDelivery=${}&numOfRow=${}&pageNo=${} */
   const { data, isLoading } = useQuery(["products"], async () => {
     const { data } = await axios.get(
-      `/api/getProduct?brands=${"Apple"}&priceNum=${1}&quickDelivery=${"all"}&numOfRow=${20}&pageNo=${1}`
+      `/api/getProduct?brands=${"Apple"}&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${20}&pageNo=${1}`
     );
     return data;
   });
