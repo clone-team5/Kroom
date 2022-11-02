@@ -120,7 +120,6 @@ const MyGroup: Array<GroupType> = [
   },
 ];
 
-
 interface FilterStates {
   isCategory: Boolean;
   isBrand: Boolean;
@@ -196,13 +195,13 @@ function Brands() {
       <div className="flex box-border relative my-0 mx-auto">
         {/* filter container */}
         <form className="w-[210px] mr-[10px] pr-[10px] box-border justify-between items-center cursor-pointer">
-            <div className="m-0 pt-[23px] pb-[15px] text-[#222222] text-[14px] font-bold justify-between items-center">
-                    필터
-                  </div>
+          <div className="m-0 pt-[23px] pb-[15px] text-[#222222] text-[14px] font-bold justify-between items-center">
+            필터
+          </div>
 
-                  {/* 카테고리 & 모든 카테고리 */}
+          {/* 카테고리 & 모든 카테고리 */}
           {/* 1층 배열 */}
-          
+
           {MyGroup.map((firstFloor) => (
             <div
               key={firstFloor.title}
@@ -239,46 +238,20 @@ function Brands() {
 
               {/* filter box (isToggle == 1) */}
               <div className="m-0 p-0 pb-[24px] box-border">
-
                 {/* 2층 배열 */}
-                <><ul className="m-0 p-0 max-h-[315px] text-[14px] overflow-y-hidden box-border list-none">
-                  {firstFloor.body.map((secondFloor) => (
-                      <><li className="list-none" key={secondFloor.name}>
-                      {/* 1st checkbox */}
-                      <label className="relative flex items-center cursor-pointer">
-                        <input
-                          className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
-                          type="checkbox"
-                          name="category1"
-                          value="shoes" />
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="white"
-                          strokeWidth="1.3"
-                          className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M4.5 12.75l6 6 9-13.5" />
-                        </svg>
-                      </label>
-
-                      <div className="m-0 pt-[16px] pb-[6px] pr-[25px] text-[14px] list-none">
-                        <span className="pl-2">{secondFloor.name}</span>
-                      </div>
-                    </li>
-                      <ul>
-                        {secondFloor.sub.map((thirdFloor) => (
-                            <li className="m-0 p-0" key={thirdFloor.name}>
-                          <label className="tracking-[-.21px] flex items-start">
+                <div>
+                  <ul className="m-0 p-0 max-h-[315px] text-[14px] overflow-y-hidden box-border list-none">
+                    {firstFloor.body.map((secondFloor) => (
+                      <div>
+                        <li className="list-none" key={secondFloor.name}>
+                          {/* 1st checkbox */}
+                          <label className="relative flex items-center cursor-pointer">
                             <input
                               className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
                               type="checkbox"
-                              name="sneakers"
-                              value="sneakers"
-                              checked />
+                              name="category1"
+                              value="shoes"
+                            />
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
@@ -289,21 +262,52 @@ function Brands() {
                               <path
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
-                                d="M4.5 12.75l6 6 9-13.5" />
+                                d="M4.5 12.75l6 6 9-13.5"
+                              />
                             </svg>
                           </label>
-                          <span className="pl-2 text-[14px]">{thirdFloor.name}</span>
-                        </li>
-                        )
-                        
-                        )}
 
-                      </ul></>
-                  
-                  ))}
-                    </div>
-                  ))}
-                  
+                          <div className="m-0 pt-[16px] pb-[6px] pr-[25px] text-[14px] list-none">
+                            <span className="pl-2">{secondFloor.name}</span>
+                          </div>
+                        </li>
+                        {/* <ul>
+                          {secondFloor.sub.map((thirdFloor) => {
+                            <li key={thirdFloor.name}>
+                              <label className="relative flex items-center cursor-pointer">
+                                <input
+                                  className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
+                                  type="checkbox"
+                                  name="category1"
+                                  value="shoes"
+                                />
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke="white"
+                                  strokeWidth="1.3"
+                                  className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center">
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M4.5 12.75l6 6 9-13.5"
+                                  />
+                                </svg>
+                              </label>
+                              <div className="m-0 pt-[16px] pb-[6px] pr-[25px] text-[14px] list-none">
+                                <span className="pl-2">{thirdFloor.name}</span>
+                              </div>
+                            </li>;
+                          })}
+                          </ul> */}
+                      </div>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ))}
         </form>
         {/* betweenBtn + items */}
         <div className="flex-1 box-border m-0 p-0">
@@ -384,8 +388,39 @@ function Brands() {
         </div>
       </div>
     </div>
-   );
-          
+  );
 }
-
 export default Brands;
+
+{
+  /* <ul>
+                        {secondFloor.sub.map((thirdFloor) => (
+                            <li className="m-0 p-0" key={thirdFloor.name}>
+                          <label className="tracking-[-.21px] flex items-start">
+                            <input
+                              className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
+                              type="checkbox"
+                              name="sneakers"
+                              value="sneakers"
+                              checked />
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="white"
+                              strokeWidth="1.3"
+                              className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center">
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M4.5 12.75l6 6 9-13.5" />
+                            </svg>
+                          </label>
+                          <span className="pl-2 text-[14px]">{thirdFloor.name}</span>
+                        </li>
+                        )
+                        
+                        )}
+
+                      </ul> */
+}
