@@ -29,7 +29,7 @@ const Login = () => {
     console.log("inputs : ", body);
     // const res = await (await fetch("url")).json();
     // console.log(res);
-    const { data } = await axios.post("/api/user/signup", body);
+    const { data } = await axios.post("/api/user/login", body);
     setIsModalShow(true);
     setTimeout(() => {
       setIsModalShow(false);
@@ -131,11 +131,11 @@ const Login = () => {
             </li>
           </ul>
           <div className="mt-10">
-            <a className="h-[62px] mb-2 border block rounded-2xl relative font-bold justify-center items-center cursor-pointer text-base">
+            <a className="h-[62px] mb-2 border flex rounded-2xl relative font-bold justify-center items-center cursor-pointer text-base">
               <div className="absolute bg-slate-400 w-6 h-6 left-[15px] top-1/2 -translate-y-1/2" />
               소셜로그인
             </a>
-            <a className="h-[62px] mb-2 border block rounded-2xl relative font-bold justify-center items-center cursor-pointer text-base">
+            <a className="h-[62px] mb-2 border flex rounded-2xl relative font-bold justify-center items-center cursor-pointer text-base">
               <div className="absolute bg-slate-400 w-6 h-6 left-[15px] top-1/2 -translate-y-1/2" />
               소셜로그인
             </a>
