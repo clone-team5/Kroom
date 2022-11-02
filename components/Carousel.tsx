@@ -111,8 +111,7 @@ const Carousel = ({ pictures }: Props) => {
       onMouseMove={() => {}}
       onDrag={handleDrag}
       onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-    >
+      onDragEnd={handleDragEnd}>
       {pictures.map((picture, i) => (
         <img
           key={picture.urls}
