@@ -8,8 +8,9 @@ const useFixoluteBox = () => {
     ? { position: "fixed" }
     : {
         position: "absolute",
-        top: (((limit.current?.scrollHeight ?? 0) as number) -
-          (fixsolute.current?.scrollHeight ?? 0)) as number,
+        top:
+          (limit.current?.scrollHeight ?? 0) -
+          (fixsolute.current?.scrollHeight ?? 0),
       };
   useEffect(() => {
     const changeState = () => {

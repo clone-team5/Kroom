@@ -4,6 +4,7 @@ import styles from "../styles/Home.module.css";
 import Carousel from "../components/Carousel";
 import BrandFocus from "../components/BrandFocus";
 import Showwindow from "../components/Showwindow";
+import { useQueries, useQuery } from "@tanstack/react-query";
 
 const Main = () => {
   return (
