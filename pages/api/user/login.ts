@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import client from "../../../libs/client";
 import jwt from "jsonwebtoken";
@@ -15,8 +14,8 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { email, password }: reqBody = req.body;
-
-  try {
+  
+  // try {
     if(!email||!password){
       throw new Error("아이디 혹은 비밀번호를 입력해 주세요")
     }
@@ -55,7 +54,7 @@ export default async function handler(
   res.setHeader('Set-Cookie', `accessToken: ${accessToken}`);
   res.status(200).json({refreshToken});
 
-  } catch (error) {
-    res.status(400).json({ error, result: "로그인에 실패하였습니다." });
-  }
+  // } catch (error) {
+  //   res.status(400).json({ error, result: "로그인에 실패하였습니다." });
+  // }
 }

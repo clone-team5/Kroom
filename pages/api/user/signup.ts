@@ -11,8 +11,8 @@ export default async function handler(
   res: NextApiResponse
 ) { 
     const {email, password, size}:bodyTypes=req.body;
-    
-    try {
+
+    // try {
         const user = await client.user.findUnique({
             where:{email}
         })
@@ -31,7 +31,7 @@ export default async function handler(
             }
         })
         res.status(200).send("회원가입이 완료 되었습니다.")
-    } catch (error) {
-        res.status(400).json(error)
-    }
+    // } catch (error) {
+    //     res.status(400).json(error)
+    // }
 }

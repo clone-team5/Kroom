@@ -24,5 +24,5 @@ export function joiValidation(
     
   }
 export const config = {
-  matcher: ['/api/user/signup']
+  matcher: ['/signup']
 }
