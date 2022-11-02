@@ -2,7 +2,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import client from "../../../libs/client";
 import jwt from "jsonwebtoken";
-import 'dotenv/config'
+import 'dotenv/config';
+import { join } from "path";
 const secret_key = process.env.SECRET_KEY || ""
 interface reqBody {
   email: string | undefined
@@ -13,7 +14,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { email, password }:reqBody = req.body;
+  const { email, password }: reqBody = req.body;
   
   try {
     if(!email||!password){
@@ -21,39 +22,30 @@ export default async function handler(
     }
     
    const user = await client.user.findUnique({where:{email}});
-   const identifier = user?.identifier
+   const userId = user?.userId
   /**accessToken 발급 */
-  if(identifier == undefined){
+  if(userId == undefined){
     res.status(400).send("유저 정보가 없습니다.");
   };
 
   const accessToken = jwt.sign(
-    {identifier},
+    {userId},
     secret_key,
     { expiresIn: '1h' }
   );
 
   /**refreshToken 발급 */
   const refreshToken = jwt.sign(
-    {identifier},
+    {userId},
     secret_key,
     { expiresIn: '7d' }
   );
   
-  await client.user.update({where:{identifier},data:{refreshToken}});
+  await client.user.update({where:{userId},data:{refreshToken}});
 
   res.status(200).json({accessToken,refreshToken})
   } catch (error) {
-    res.status(400).json({ error, result: "실패" });
+    res.status(400).json({ error, result: "로그인에 실패하였습니다." });
   }
 }
 
-// userId    Int     @id @default(autoincrement())
-//   email     String  @unique
-//   identifier String
-//   nickname  String @unique
-//   password  String
-//   profileImg String ?
-//   refreshToken String ?
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
