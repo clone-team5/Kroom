@@ -9,6 +9,7 @@ import icons from "../components/icons";
 import Checkbox from "../components/Checkbox";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 interface NavStates {
   isFadeout: boolean;
   to: string;
@@ -44,10 +45,9 @@ const Join = () => {
     reset,
     formState: { errors, isValid },
   } = useForm<JoinForm>({ mode: "onChange" });
-  const onValid = async (data: FieldValues) => {
-    console.log("inputs : ", data);
-    // const res = await (await fetch("url")).json();
-    // console.log(res);
+  const onValid = async (body: FieldValues) => {
+    console.log("inputs : ", body);
+    const { data } = await axios.post("/api/user/signup", body);
     setIsModalShow(true);
     setTimeout(() => {
       setIsModalShow(false);
@@ -94,16 +94,6 @@ const Join = () => {
       [mainName]: newChecks,
     }));
   };
-  useEffect(() => {
-    console.log("okStates : ", okStates);
-  }, [okStates]);
-  const { data } = useQuery(["todos"], async () => {
-    const data = await (
-      await fetch("https://jsonplaceholder.typicode.com/todos/1")
-    ).json();
-    return data;
-  });
-  console.log("data", data);
   return (
     <div
       className={cls(
@@ -122,7 +112,6 @@ const Join = () => {
                 "text-[13px] transition-colors",
                 errors.email ? "text-red-500" : "text-gray-800"
               )}>
-              {data?.title}
               이메일 주소*
             </h3>
             <input

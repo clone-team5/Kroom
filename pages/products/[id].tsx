@@ -48,7 +48,15 @@ const Product = () => {
               <p>asdasd</p>
             </div>
           </div>
-          <div className="h-[60px] mt-[17px]">구매 판매</div>
+          <div className="h-[60px] mt-[17px] flex justify-between">
+            <div className="w-[206px] h-[60px] flex justify-center items-center bg-red-700">
+              <div>구매</div>
+              <div>1,230,000원</div>
+            </div>
+            <div className="w-[206px] h-[60px] flex justify-center items-center bg-green-700">
+              판매
+            </div>
+          </div>
           <div className="h-[60px] mt-[12px]">관심 상품</div>
           <h3 className="pt-[39px] pb-[13px] h-[22px]">상품정보</h3>
           <div className="h-[79px] border-y-2">모델번호</div>
@@ -64,3 +72,14 @@ const Product = () => {
 };
 
 export default Product;
+/*{ 
+  productId: 290,
+  price: 1450000,
+  nameEng: ‘Apple iPhone 14 Pro 128GB Silver (Korean Ver.)’,
+  brand: ‘Apple’,
+  nameKr: ‘애플 아이폰 14 프로 128기가 실버 (국내 정식 발매 제품)’,
+  quickdlivery: true,
+  imgUrl: ‘https://kream-phinf.pstatic.net/MjAyMjA5MjhfMTk5/MDAxNjY0MzM1MDY3ODc1.U3kxiHRzQarvxPVAyn_9nXWfCJgfGUMEf-Sj9m4sq_Yg.I-kyuffYbWkz8m7ByNbQF3LSKbSavVLLtvCyOZznahwg.JPEG/a_44b4149744b948c7857e3dc929a958e1.jpg?type=m’,
+  pid: ‘78864’,
+  createdAt: 2022-11-02T07:07:25.791Z
+} */

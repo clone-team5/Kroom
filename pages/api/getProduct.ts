@@ -11,6 +11,7 @@ interface Product {
   quickdlivery: boolean;
   imgUrl: string;
   createdAt: Date;
+  pid:string;
 }
 
 export default async function handler(
@@ -18,7 +19,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   let { brands, quickDelivery, numOfRow, pageNo, priceNum } = req.query;
-  console.log(req.query);
   // brands=> Louis Vuitton, Rolex,Celine,Acne Studios,Moncler,Apple,Prada, all
   if (typeof brands === "string" || typeof brands === "undefined") {
     if (brands !== "all") {
@@ -149,7 +149,7 @@ export default async function handler(
   });
   for (let list of data) {
     // console.log(list['nameKr'], list['quickdlivery'],list['price']);
-    console.log(list["price"]);
+    console.log(list);
   }
   console.log("count:::>" + data.length);
   !data.length
