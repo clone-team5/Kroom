@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { cls } from "../../utils";
 import { Item } from "../../types";
@@ -145,10 +145,12 @@ function Brands() {
     const { data } = await axios.get(
       `/api/getProduct?brands=${
         brandName.branditem
-      }&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${10}&pageNo=${1}`
+      }&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${20}&pageNo=${1}`
     );
     return data;
   });
+
+  const { refetch } = useInfiniteQuery({});
   console.log(res);
   console.log(brandName.branditem);
 
