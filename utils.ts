@@ -62,3 +62,8 @@ export const regOptJoin = {
     optionCreator<JoinForm>(["notification.1", {}]),
   ],
 };
+export const colorDice = () => {
+  const color = () =>
+    Math.floor((0.7 + 0.3 * Math.random()) * 256).toString(16);
+  return "#" + color() + color() + color();
+};
