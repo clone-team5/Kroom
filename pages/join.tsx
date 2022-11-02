@@ -124,7 +124,8 @@ const Join = () => {
                 "text-[13px] transition-colors",
                 errors.email ? "text-red-500" : "text-gray-800"
               )}
-            >
+
+            >{data?.title}
               이메일 주소*
             </h3>
             <input
