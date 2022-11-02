@@ -48,7 +48,6 @@ const Carousel = ({ pictures }: Props) => {
     isDragging: false,
     isFlipped: false,
   });
-  const [grabbing, setGrabbing] = useState(false);
   const pictureCycler = cycler(pictures.length);
   const handleChangeLeft = () => {
     setSelected((cur) => pictureCycler(cur - 1));
@@ -94,7 +93,6 @@ const Carousel = ({ pictures }: Props) => {
     }));
   };
   const handleDragEnd = (e: MouseEvent<HTMLElement>) => {
-    setGrabbing(false);
     setDragState((cur) => ({
       ...cur,
       isDragging: false,
@@ -103,22 +101,13 @@ const Carousel = ({ pictures }: Props) => {
   const handleClickIndicator = (index: number) => () => {
     setSelected(index);
   };
-  console.log("grabbing :", grabbing);
   return (
     <div
       onClick={handleClickPicture(selected)}
       className={cls(
         "relative w-full min-h-[480px]",
-        // dragState.isDragging ? "cursor-grabbing" : "cursor-pointer", //질문하기 cusor-grabbing 적용하려면?
-        grabbing ? "cursor-grabbing" : "cursor-pointer"
+        dragState.isDragging ? "cursor-grabbing" : "cursor-pointer" //질문하기 cusor-grabbing 적용하려면?
       )}
-      onMouseDown={() => {
-        setGrabbing(true);
-      }}
-      onMouseUp={() => {
-        console.log("hi");
-        setGrabbing(false);
-      }}
       onMouseMove={() => {}}
       onDrag={handleDrag}
       onDragStart={handleDragStart}
