@@ -31,19 +31,15 @@ model User {
 }
 
 model Product {
-  productId Int @id @default(autoincrement())
-  name String
+  productId    Int     @id @default(autoincrement())
   price Int
-  koeanDesc String?
-  size Int?
-  releasedDate DateTime? @default(now())
-  color String?
-  likeNumber Int? @default(0)
+  nameEng String
   brand String
-  category String?
-  gender String?
+  nameKr String
+  quickdlivery Boolean
+  imgUrl String   @db.VarChar(500)
+  pid String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model Style {
