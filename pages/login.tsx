@@ -5,6 +5,7 @@ import Toast from "../components/Toast";
 import { LoginForm } from "../types";
 import { cls, regOptJoin } from "../utils";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 interface NavStates {
   isFadeout: boolean;
@@ -24,10 +25,11 @@ const Login = () => {
     reset,
     formState: { errors, isValid },
   } = useForm();
-  const onValid = async (data: FieldValues) => {
-    console.log("inputs : ", data);
+  const onValid = async (body: FieldValues) => {
+    console.log("inputs : ", body);
     // const res = await (await fetch("url")).json();
     // console.log(res);
+    const { data } = await axios.post("/api/user/signup", body);
     setIsModalShow(true);
     setTimeout(() => {
       setIsModalShow(false);
