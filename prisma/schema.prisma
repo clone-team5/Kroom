@@ -16,11 +16,11 @@ datasource db {
 model User {
   userId    Int     @id @default(autoincrement())
   email     String  @unique
-  identifier String @unique
   nickname  String @unique
   password  String
   profileImg String ?
   refreshToken String ?
+  size Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   comment Comment[]
@@ -58,27 +58,25 @@ model Product {
 
 model Style {
   styleId Int @id @default(autoincrement())
-  identifier String @unique
   profileImg String
   styleImg String
   hashtag String
   like Int
   content String  
-  user User @relation(fields: [userId], references: [identifier],onDelete: Cascade)
-  userId String
+  user User @relation(fields: [userId], references: [userId],onDelete: Cascade)
+  userId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   comment Comment[]
 }
 
 model Comment {
-  commentId Int @id @default(autoincrement())
-  identifier String @unique
+  commentId Int   @id @default(autoincrement())
   comment String
-  user User @relation(fields: [userId], references: [identifier],onDelete: Cascade)
-  userId String
-  style Style @relation(fields: [styleId], references: [identifier],onDelete: Cascade)
-  styleId String
+  user User       @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  userId Int
+  style Style     @relation(fields: [styleId], references: [styleId], onDelete: Cascade)
+  styleId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
