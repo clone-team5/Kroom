@@ -1,4 +1,6 @@
 import React, { useState, useRef } from "react";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 import { cls } from "../../utils";
 import { Item } from "../../types";
 
@@ -241,7 +243,7 @@ function Brands() {
                 {/* 2층 배열 */}
                 <div>
                   <ul className="m-0 p-0 max-h-[315px] text-[14px] overflow-y-hidden box-border list-none">
-                    {firstFloor.body.map((secondFloor) => (
+                    {firstFloor.body?.map((secondFloor) => (
                       <div>
                         <li className="list-none" key={secondFloor.name}>
                           {/* 1st checkbox */}
@@ -271,8 +273,8 @@ function Brands() {
                             <span className="pl-2">{secondFloor.name}</span>
                           </div>
                         </li>
-                        {/* <ul>
-                          {secondFloor.sub.map((thirdFloor) => {
+                        <ul>
+                          {secondFloor.sub?.map((thirdFloor) => (
                             <li key={thirdFloor.name}>
                               <label className="relative flex items-center cursor-pointer">
                                 <input
@@ -298,9 +300,9 @@ function Brands() {
                               <div className="m-0 pt-[16px] pb-[6px] pr-[25px] text-[14px] list-none">
                                 <span className="pl-2">{thirdFloor.name}</span>
                               </div>
-                            </li>;
-                          })}
-                          </ul> */}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     ))}
                   </ul>
