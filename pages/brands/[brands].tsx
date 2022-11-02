@@ -38,7 +38,7 @@ function Brands() {
       {/* Top */}
       <div className="mt-[40px] mx-auto">
         <div className="text-[32px] text-[#222222] font-bold flex justify-center">
-          Acne
+          Acne Studios
         </div>
         <div className="text-[12px] text-[#22222280] flex justify-center">
           상품923
@@ -76,158 +76,7 @@ function Brands() {
       {/* Bottom (filter + betweenBtn + items) */}
       <div className="flex box-border relative my-0 mx-auto">
         {/* filter container */}
-        <form className="w-[210px] mr-[10px] pr-[10px] box-border justify-between items-center cursor-pointer">
-          <div className="m-0 pt-[23px] pb-[15px] text-[#222222] text-[14px] font-bold justify-between items-center">
-            필터
-          </div>
 
-          {/* 카테고리 & 모든 카테고리 */}
-          {[1, 2, 3, 4, 5, 6].map((e) => (
-            <div
-              key={e}
-              className="box-border border-solid border-b border-[#ebebeb]">
-              <div className="flex m-0 py-[16px] box-border justify-between items-center">
-                <div className="flex flex-column cursor-pointer">
-                  <span className="text-[13px] text-[#222222] font-bold absolute">
-                    카테고리
-                  </span>
-                  <span className="mt-[24px] text-[15px] text-[#22222280] tracking-[-.15px] truncate">
-                    모든 카테고리
-                  </span>
-                </div>
-
-                {/* + btn */}
-                <div className="m-0 p-0 h-[20px] cursor-pointer">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="gray"
-                    className="w-5 h-5">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 6v12m6-6H6"
-                    />
-                  </svg>
-                </div>
-              </div>
-
-              {/* filter box (isToggle == 1) */}
-              <div className="m-0 p-0 pb-[24px] box-border">
-                {/* 1st ul */}
-                <ul className="m-0 p-0 max-h-[315px] text-[14px] overflow-y-hidden box-border list-none">
-                  <li className="list-none">
-                    <label className="relative flex items-center cursor-pointer">
-                      <input
-                        className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
-                        type="checkbox"
-                        name="category1"
-                        value="shoes"
-                      />
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="white"
-                        strokeWidth="1.3"
-                        className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M4.5 12.75l6 6 9-13.5"
-                        />
-                      </svg>
-                      <span className="pl-2">신발</span>
-                    </label>
-
-                    {/* 2nd ul */}
-
-                    <ul className="m-0 pt-[16px] pb-[6px] pr-[25px] text-[14px] list-none">
-                      {/* 2 - 1 li */}
-                      <li className="m-0 p-0">
-                        <label className="tracking-[-.21px] flex items-start">
-                          <input
-                            className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
-                            type="checkbox"
-                            name="sneakers"
-                            value="sneakers"
-                            checked
-                          />
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="white"
-                            strokeWidth="1.3"
-                            className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center">
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M4.5 12.75l6 6 9-13.5"
-                            />
-                          </svg>
-                          <span className="pl-2 text-[14px]">스니커즈</span>
-                        </label>
-                      </li>
-                      {/* 2 - 2 li */}
-                      <li className="m-0 p-0">
-                        <label className="tracking-[-.21px] flex items-start">
-                          <input
-                            className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
-                            type="checkbox"
-                            name="lopper"
-                            value="lopper"
-                          />
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="white"
-                            strokeWidth="1.3"
-                            className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center">
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M4.5 12.75l6 6 9-13.5"
-                            />
-                          </svg>
-                          <span className="pl-2 text-[14px]">로퍼/플랫</span>
-                        </label>
-                      </li>
-                      {/* 2 - 3 li */}
-                      <li className="m-0 p-0">
-                        <label className="tracking-[-.21px] flex items-start">
-                          <input
-                            className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
-                            type="checkbox"
-                            name="boots"
-                            value="boots"
-                          />
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="white"
-                            strokeWidth="1.3"
-                            className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center">
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M4.5 12.75l6 6 9-13.5"
-                            />
-                          </svg>
-                          <span className="pl-2 text-[14px]">부츠</span>
-                        </label>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          ))}
-        </form>
         {/* betweenBtn + items */}
         <div className="flex-1 box-border m-0 p-0">
           <div className="pt-[16px] px-[10px] justify-between flex">
@@ -312,18 +161,21 @@ function Brands() {
 
 export default Brands;
 
-/*  */
+/* 1층 */
 interface GroupType {
   title: string;
   subTitle: string;
   body: SubMenu[];
 }
+
+/* 2층  */
 interface SubMenu {
   name: string;
   isClick: boolean;
-  sub?: SubMenu[];
+  /* 옵셔널 기능으로 반드시 있어야되는 요소가 아님을 설정 */
+  sub?: SubMenu[] | undefined;
 }
-const mygroup: Array<GroupType> = [
+const MyGroup: Array<GroupType> = [
   {
     title: "카테고리",
     subTitle: "모든 카테고리",
@@ -377,47 +229,51 @@ const mygroup: Array<GroupType> = [
   },
   {
     title: "성별",
-    subTitle: "모든 카테고리",
+    subTitle: "모든 성별",
     body: [
       {
-        name: "신발",
+        name: "남성",
         isClick: false,
-        sub: [
-          { name: "스니커스", isClick: false },
-          { name: "로퍼", isClick: false },
-          { name: "부츠", isClick: false },
-        ],
       },
       {
-        name: "의류",
+        name: "여성",
         isClick: false,
-        sub: [
-          { name: "", isClick: false },
-          { name: "", isClick: false },
-        ],
+      },
+      {
+        name: "키즈",
+        isClick: false,
       },
     ],
   },
   {
-    title: "카테고리",
-    subTitle: "모든 카테고리",
+    title: "컬렉션",
+    subTitle: "모든 컬렉션",
     body: [
       {
-        name: "신발",
+        name: "Contemporary",
         isClick: false,
-        sub: [
-          { name: "스니커스", isClick: false },
-          { name: "로퍼", isClick: false },
-          { name: "부츠", isClick: false },
-        ],
+      },
+    ],
+  },
+  {
+    title: "가격",
+    subTitle: "모든 컬렉션",
+    body: [
+      {
+        name: "10만원 이하",
+        isClick: false,
       },
       {
-        name: "의류",
+        name: "10만원 - 30만원",
         isClick: false,
-        sub: [
-          { name: "", isClick: false },
-          { name: "", isClick: false },
-        ],
+      },
+      {
+        name: "30만원 - 50만원",
+        isClick: false,
+      },
+      {
+        name: "50만원 이상",
+        isClick: false,
       },
     ],
   },

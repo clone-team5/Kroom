@@ -1,11 +1,23 @@
+import React, { useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Carousel from "../components/Carousel";
 import BrandFocus from "../components/BrandFocus";
 import Showwindow from "../components/Showwindow";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 const Main = () => {
+  /* ~/api/getproduct?brands=${}&priceNum=${}&quickDelivery=${}&numOfRow=${}&pageNo=${} */
+  const { data, isLoading } = useQuery(["products"], async () => {
+    const { data } = await axios.get(
+      `/api/getproduct?numOfRow=${20}&pageNo=${1}`
+    );
+    return data;
+  });
+  console.log(data);
+
   return (
     <div>
       <Carousel
