@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import { cls } from "../../utils";
 import { Item } from "../../types";
 
@@ -138,14 +139,18 @@ const MyGroup: Array<GroupType> = [
 ];
 
 function Brands() {
-  const { data, isLoading } = useQuery(["products"], async () => {
-    const data = await axios.get(
-      `/api/getProduct?brands=${"Apple"}&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${10}&pageNo=${1}`
+  const router = useRouter();
+  const brandName = router.query;
+  const { data: res, isLoading } = useQuery(["products"], async () => {
+    const { data } = await axios.get(
+      `/api/getProduct?brands=${
+        brandName.branditem
+      }&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${10}&pageNo=${1}`
     );
-    const res = data.data;
-    return res;
+    return data;
   });
-  console.log(data);
+  console.log(res);
+  console.log(brandName.branditem);
 
   const [FilterStates, SetFilterStates] = useState<FilterStates>({
     isCategory: false,
@@ -175,7 +180,7 @@ function Brands() {
       {/* Top */}
       <div className="mt-[40px] mx-auto">
         <div className="text-[32px] text-[#222222] font-bold flex justify-center">
-          Acne Studios
+          {res?.data[0].brand}
         </div>
         <div className="text-[12px] text-[#22222280] flex justify-center">
           상품923
@@ -369,32 +374,30 @@ function Brands() {
           <div className="mx-[auto] h-auto my-0 p-0 box-border flex justify-between">
             {/* item container */}
             <div>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((e: any) => (
+              {res?.data.map((e: any) => (
                 <div
                   key={e.brand}
                   className="w-[25%] mx-0 my-[20px] py-0 px-[10px] box-border align-top inline-block relative transition 0.4s ease-in-out">
                   <div className="bg-[#f4f4f4] rounded-[12px]">
-                    <img
-                      src="https://kream-phinf.pstatic.net/MjAyMTExMjZfMTky/MDAxNjM3OTA0MTc1MTM5.7u1ztveFrIkGQFz_zkyO48FxYRCIaNy5FrZZV6lJh5Ag.0voOw4cwfn4fE2AuT9TfCqQrfkAnK-sS4c4IOckiZcIg.JPEG/a_f0a2f1827f1e43ae911d999b9c25b618.jpg?type=m_webp"
-                      alt="item"
-                      className="rounded-[12px]"
-                    />
+                    <img src={e.imgUrl} alt="item" className="rounded-[12px]" />
                   </div>
                   <div className="m-0 pt-[9px]">
                     <p className="text-[14px] text-[#333333] font-bold leading-4 tracking-[-0.21px] underline underline-offset-[1px] box-border align-top inline-block">
-                      Acne Studios
-                    </p>
-                    <p className="mt-[2px] text-[13px] leading-4 text-ellipsis">
                       {e.brand}
                     </p>
-                    <p className="mt-[2px] text-[12px] text-[#22222280] leading-4 tracking-[-.06] text-ellipsis">
-                      아크네 스튜디오 모헤어 체크 스카프 푸시아 라일락 핑크
+                    <p className="mt-[2px] text-[13px] leading-4 text-ellipsis">
+                      {e.nameEng}
                     </p>
-                    <div className="text-[11px] relative before:top-[4px] before:left-[3.5px] before:content-[''] before:absolute before:block before:h-[15px] before:w-[11px] before:bg-[url(https://kream.co.kr/_nuxt/img/ico-express.8dac9dc.svg)] text-green-400 py-[4.5px] pr-[5.5px] pl-[17px] inline-block">
-                      빠른배송
-                    </div>
+                    <p className="mt-[2px] text-[12px] text-[#22222280] leading-4 tracking-[-.06] text-ellipsis">
+                      {e.nameKr}
+                    </p>
+                    {e.quickdlivery === true ? (
+                      <div className="text-[11px] relative before:top-[4px] before:left-[3.5px] before:content-[''] before:absolute before:block before:h-[15px] before:w-[11px] before:bg-[url(https://kream.co.kr/_nuxt/img/ico-express.8dac9dc.svg)] text-green-400 py-[4.5px] pr-[5.5px] pl-[17px] inline-block">
+                        빠른배송
+                      </div>
+                    ) : null}
                     <span className="m-0 p-0 text-[14px] text-[#222222] leading-[17px] font-bold box-border flex">
-                      377,000원
+                      {e.price}
                     </span>
                     <p className="m-0 p-0 box-border text-[11px] text-[#22222280] leading-[13px]">
                       즉시 구매가
