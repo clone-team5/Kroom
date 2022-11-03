@@ -1,3 +1,6 @@
+import { MutableRefObject, useEffect } from "react";
+import { useInView } from "react-intersection-observer";
+
 const Banner = () => {
   return (
     <div className="flex">
