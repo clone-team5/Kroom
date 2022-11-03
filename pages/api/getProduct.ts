@@ -11,7 +11,7 @@ interface Product {
   quickdlivery: boolean;
   imgUrl: string;
   createdAt: Date;
-  pid:string;
+  pid: string;
 }
 
 export default async function handler(
@@ -122,7 +122,7 @@ export default async function handler(
   // pageNo=> pageNum 반환될 페이지 쪽수
   if (typeof pageNo !== "string" || typeof pageNo === "undefined")
     throw new Error();
-
+  // @ts-ignore
   const data: Product[] = await client.product.findMany({
     where: {
       AND: {
@@ -151,8 +151,8 @@ export default async function handler(
     // console.log(list['nameKr'], list['quickdlivery'],list['price']);
     console.log(list);
   }
-  console.log("count:::>" + data.length);
+  
   !data.length
     ? res.status(204).json({ result: "검색 결과가 없습니다." })
-    : res.status(201).json({ data });
+    : res.status(201).json({ data , nextPageNo:parseInt(pageNo)+1});
 }
