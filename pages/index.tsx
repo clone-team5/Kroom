@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
@@ -8,6 +8,8 @@ import Showwindow from "../components/Showwindow";
 import axios from "axios";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import Spinner from "../components/Spinner";
+import { useInView } from "react-intersection-observer";
+import Banner from "../components/Banner";
 
 const bannerImgs = [
   "https://kream-phinf.pstatic.net/MjAyMjEwMzFfNDYg/MDAxNjY3MTg1NDYyNjc0.2Vb7XJhsAeUUSbree2v99RMAcAG99BHoRpqtUMSxpKAg.VNOsl5UYTwzEu20AKVgdiwDuXhZYFli6dCg9St7GrbYg.JPEG/a_9a770fc5d86143a49dd2cb8b1fab7b72.jpg?type=m_2560",
@@ -28,11 +30,10 @@ const Main = () => {
     const {
       data: { data },
     } = await axios.get(
-      `/api/getProduct?brands=${"Apple"}&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${20}&pageNo=${1}`
+      `/api/getProduct?brands=${"Apple"}&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${4}&pageNo=${1}`
     );
     return data;
   });
-  console.log(data?.slice(0, 4));
   // const fetchPage = ({ pageParam = 0 }) => {
   //   // API
   //   const { data } = await axios.get(
@@ -55,8 +56,54 @@ const Main = () => {
   //     getPreviousPageParam: (firstPage, allPages) => firstPage.prevCursor,
   //   }
   // );
+  const {
+    status,
+    data: dataInfi,
+    error,
+    isFetching,
+    isFetchingNextPage,
+    isFetchingPreviousPage,
+    fetchNextPage,
+    fetchPreviousPage,
+    hasNextPage,
+    hasPreviousPage,
+  } = useInfiniteQuery(
+    ["projects"],
+    async ({ pageParam = 1 }) => {
+      const res = await axios.get(
+        `/api/getProduct?brands=${"Apple"}&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${4}&pageNo=${pageParam}`
+      );
+      console.log(res);
+      return res.data;
+    },
+    {
+      getPreviousPageParam: (firstPage) => firstPage.previousId ?? undefined,
+      getNextPageParam: (lastPage) => {
+        return +lastPage.nextPageNo ?? undefined;
+      },
+    }
+  );
+
+  const [ref, inView] = useInView();
+  useEffect(() => {
+    console.log(dataInfi);
+    // (async () => {
+    //   const {
+    //     data: { data },
+    //   } = await axios.get(
+    //     `/api/getProduct?brands=${"Apple"}&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${20}&pageNo=${1}`
+    //   );
+    //   console.log(data);
+    // })();
+  }, [dataInfi]);
+  React.useEffect(() => {
+    if (inView) {
+      console.log("hi");
+      fetchNextPage();
+    }
+  }, [inView]);
   return (
-    <div>
+    <>
       <Carousel
         pictures={[
           {
@@ -81,12 +128,18 @@ const Main = () => {
           },
         ]}
       />
-      <Showwindow items={data?.slice(0, 4) ?? []} />
-      <BrandFocus />
+      {dataInfi?.pages.map((page, i) => (
+        <Fragment key={i}>{<Showwindow items={page.data} />}</Fragment>
+      ))}
+      {/* <BrandFocus />
       <div>
         <img src={bannerImgs[0]} alt="" />
+      </div> */}
+
+      <div ref={ref}>
+        <Banner />
       </div>
-    </div>
+    </>
   );
 };
 

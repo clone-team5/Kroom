@@ -5,7 +5,7 @@ interface Props {
   items: Item[];
 }
 
-const Showwindow = ({ items }: Props) => {
+const Showwindow = ({ items = [] }: Props) => {
   // const items: Item[] = Array(4).fill({
   //   cartegory: "",
   //   brand: "Asics",

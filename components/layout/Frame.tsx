@@ -12,7 +12,6 @@ const Frame = ({ children }: Props) => {
     <>
       <Header />
       <div className="pt-28">{children}</div>
-      <Banner />
       <Footer />
     </>
   );
