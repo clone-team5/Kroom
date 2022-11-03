@@ -22,8 +22,8 @@ const Header = () => {
         </div>
       </div>
       <div className="flex marker:w-screen h-[4.8rem] border-solid border-b justify-between items-center">
-        <div onClick={handleClickLogo} className="ml-[3rem]  text-[3.5rem]">
-          Kream
+        <div onClick={handleClickLogo} className="ml-[3rem]">
+          <img src="/kroom.png" alt="kloom" />
         </div>
         <div className="flex items-stretch flex-row justify-end">
           <div className="mr-[2rem] text-[1.4rem]">STYLE</div>
@@ -36,8 +36,7 @@ const Header = () => {
               viewBox="0 0 24 24"
               strokeWidth={1.8}
               stroke="currentColor"
-              className="w-9 h-9"
-            >
+              className="w-9 h-9">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
