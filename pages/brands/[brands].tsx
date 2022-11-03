@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
+import { useInView } from "react-intersection-observer";
 import { cls } from "../../utils";
 import { Item } from "../../types";
 
@@ -39,7 +40,7 @@ const MyGroup: Array<GroupType> = [
   {
     title: "카테고리",
     subTitle: "모든 카테고리",
-    isToggle: true,
+    isToggle: false,
     body: [
       {
         name: "신발",
@@ -151,28 +152,57 @@ const MyGroup: Array<GroupType> = [
 function Brands() {
   const router = useRouter();
   const brandName = router.query;
-  const { data: res, isLoading } = useQuery(["products"], async () => {
+  /*   const { data: res, isLoading } = useQuery(["products"], async () => {
     const { data } = await axios.get(
       `/api/getProduct?brands=${
         brandName.branditem
-      }&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${20}&pageNo=${1}`
+      }&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${16}&pageNo=${1}`
     );
     return data;
   });
+ */
+  const {
+    status,
+    data: dataInfi,
+    error,
+    isFetching,
+    isFetchingNextPage,
+    isFetchingPreviousPage,
+    fetchNextPage,
+    fetchPreviousPage,
+    hasNextPage,
+    hasPreviousPage,
+  } = useInfiniteQuery(
+    ["projects"],
+    async ({ pageParam = 1 }) => {
+      const res = await axios.get(
+        `/api/getProduct?brands=${
+          brandName.branditem
+        }&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${16}&pageNo=${pageParam}`
+      );
+      console.log(res);
+      return res.data;
+    },
+    {
+      getPreviousPageParam: (firstPage) => firstPage.previousId ?? undefined,
+      getNextPageParam: (lastPage) => {
+        return +lastPage.nextPageNo ?? undefined;
+      },
+    }
+  );
 
-  const { refetch } = useInfiniteQuery({});
-  console.log(res);
-  console.log(brandName.branditem);
+  const [ref, inView] = useInView();
+  useEffect(() => {
+    console.log(dataInfi);
+  }, [dataInfi]);
+  React.useEffect(() => {
+    if (inView) {
+      console.log("success");
+      fetchNextPage();
+    }
+  }, [inView]);
 
   const [navStates, setNavStates] = useState({ isFadeout: true, to: "" });
-
-  /* const [isToggle, setIsToggle] = useState<MyGroup>({ isToggle: }) */
-
-  /* 필터 값을 보낼때 query로 보냄 */
-
-  /* radio 는 취소가 안되므로 취소가 가능한 checkbox
-  state 값에 하나가 들어가고 checkbox == 1 / checkbox == 0 setState false 
-  key 값으로 통일 */
 
   return (
     /* Total Container */
@@ -180,10 +210,10 @@ function Brands() {
       {/* Top */}
       <div className="mt-[40px] mx-auto">
         <div className="text-[32px] text-[#222222] font-bold flex justify-center">
-          {res?.data[0].brand}
+          {dataInfi?.pages}
         </div>
         <div className="text-[12px] text-[#22222280] flex justify-center">
-          상품923
+          상품
         </div>
       </div>
 
@@ -381,7 +411,7 @@ function Brands() {
           <div className="mx-[auto] h-auto my-0 p-0 box-border flex justify-between">
             {/* item container */}
             <div>
-              {res?.data.map((e: any) => (
+              {dataInfi?.pages.map((e: any) => (
                 <div
                   key={e.brand}
                   className="w-[25%] mx-0 my-[20px] py-0 px-[10px] box-border align-top inline-block relative transition 0.4s ease-in-out">
@@ -412,6 +442,7 @@ function Brands() {
                   </div>
                 </div>
               ))}
+              <div ref={ref}></div>
             </div>
           </div>
         </div>

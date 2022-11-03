@@ -75,13 +75,13 @@ const Main = () => {
       );
       console.log(res);
       return res.data;
-    },
-    {
+    }
+    /*     {
       getPreviousPageParam: (firstPage) => firstPage.previousId ?? undefined,
       getNextPageParam: (lastPage) => {
         return +lastPage.nextPageNo ?? undefined;
       },
-    }
+    } */
   );
 
   const [ref, inView] = useInView();
@@ -131,10 +131,10 @@ const Main = () => {
       {dataInfi?.pages.map((page, i) => (
         <Fragment key={i}>{<Showwindow items={page.data} />}</Fragment>
       ))}
-      {/* <BrandFocus />
+      <BrandFocus />
       <div>
         <img src={bannerImgs[0]} alt="" />
-      </div> */}
+      </div>
 
       <div ref={ref}>
         <Banner />
