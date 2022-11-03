@@ -93,8 +93,7 @@ const Main = () => {
       <BrandFocus />
       <div>
         <img src={bannerImgs[0]} alt="" />
-      </div> */}
-
+      </div>
       <div ref={ref}>
         <Banner />
       </div>
