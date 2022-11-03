@@ -24,6 +24,7 @@ interface FilterStates {
 interface GroupType {
   title: string;
   subTitle: string;
+  isToggle: boolean;
   body: SubMenu[];
 }
 
@@ -38,6 +39,7 @@ const MyGroup: Array<GroupType> = [
   {
     title: "카테고리",
     subTitle: "모든 카테고리",
+    isToggle: true,
     body: [
       {
         name: "신발",
@@ -79,6 +81,8 @@ const MyGroup: Array<GroupType> = [
   {
     title: "브랜드",
     subTitle: "모든 카테고리",
+    isToggle: false,
+
     body: [
       {
         name: "Acne Studios",
@@ -89,6 +93,8 @@ const MyGroup: Array<GroupType> = [
   {
     title: "성별",
     subTitle: "모든 성별",
+    isToggle: false,
+
     body: [
       {
         name: "남성",
@@ -107,6 +113,8 @@ const MyGroup: Array<GroupType> = [
   {
     title: "컬렉션",
     subTitle: "모든 컬렉션",
+    isToggle: false,
+
     body: [
       {
         name: "Contemporary",
@@ -117,6 +125,8 @@ const MyGroup: Array<GroupType> = [
   {
     title: "가격",
     subTitle: "모든 컬렉션",
+    isToggle: false,
+
     body: [
       {
         name: "10만원 이하",
@@ -154,21 +164,9 @@ function Brands() {
   console.log(res);
   console.log(brandName.branditem);
 
-  const [FilterStates, SetFilterStates] = useState<FilterStates>({
-    isCategory: false,
-    isBrand: false,
-    isGender: false,
-    isCollect: false,
-    isSize: false,
-    isPrice: false,
-  });
-  /*  const [isBrand, SetisBrand] = useState(false);
-  const [isGender, SetisGender] = useState(false);
-  const [isCollect, SetisCollect] = useState(false);
-  const [isSize, SetisSize] = useState(false);
-  const [isPrice, SetisPrice] = useState(false); */
-
   const [navStates, setNavStates] = useState({ isFadeout: true, to: "" });
+
+  /* const [isToggle, setIsToggle] = useState<MyGroup>({ isToggle: }) */
 
   /* 필터 값을 보낼때 query로 보냄 */
 
@@ -198,8 +196,7 @@ function Brands() {
             viewBox="0 0 24 24"
             strokeWidth={1}
             stroke="currentColor"
-            className="w-6 h-6"
-          >
+            className="w-6 h-6">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -232,8 +229,7 @@ function Brands() {
           {MyGroup.map((firstFloor) => (
             <div
               key={firstFloor.title}
-              className="box-border border-solid border-b border-[#ebebeb]"
-            >
+              className="box-border border-solid border-b border-[#ebebeb]">
               <div className="flex m-0 py-[16px] box-border justify-between items-center">
                 <div className="flex flex-column cursor-pointer">
                   {/* 카테고리 */}
@@ -241,9 +237,85 @@ function Brands() {
                     {firstFloor.title}
                   </span>
                   {/* 카테고리 하단 서브 타이틀 */}
-                  <span className="mt-[24px] text-[15px] text-[#22222280] tracking-[-.15px] truncate">
-                    {firstFloor.subTitle}
-                  </span>
+                  {firstFloor.isToggle ? (
+                    <div className="m-0 p-0 pb-[24px] box-border">
+                      {/* 2층 배열 */}
+                      <div>
+                        <ul className="m-0 p-0 max-h-[315px] text-[14px] overflow-y-hidden box-border list-none">
+                          {firstFloor.body?.map((secondFloor) => (
+                            <div key={secondFloor.name}>
+                              <li className="list-none">
+                                {/* 1st checkbox */}
+                                <label className="relative flex items-center cursor-pointer">
+                                  <input
+                                    className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
+                                    type="checkbox"
+                                    name="category1"
+                                    value="shoes"
+                                  />
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="white"
+                                    strokeWidth="1.3"
+                                    className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center">
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="M4.5 12.75l6 6 9-13.5"
+                                    />
+                                  </svg>
+                                </label>
+
+                                <div className="m-0 pt-[16px] pb-[6px] pr-[25px] text-[14px] list-none">
+                                  <span className="pl-2">
+                                    {secondFloor.name}
+                                  </span>
+                                </div>
+                              </li>
+                              <ul>
+                                {secondFloor.sub?.map((thirdFloor) => (
+                                  <li key={thirdFloor.name}>
+                                    <label className="relative flex items-center cursor-pointer">
+                                      <input
+                                        className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
+                                        type="checkbox"
+                                        name="category1"
+                                        value="shoes"
+                                      />
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="white"
+                                        strokeWidth="1.3"
+                                        className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center">
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          d="M4.5 12.75l6 6 9-13.5"
+                                        />
+                                      </svg>
+                                    </label>
+                                    <div className="m-0 pt-[16px] pb-[6px] pr-[25px] text-[14px] list-none">
+                                      <span className="pl-2">
+                                        {thirdFloor.name}
+                                      </span>
+                                    </div>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  ) : (
+                    <span className="mt-[24px] text-[15px] text-[#22222280] tracking-[-.15px] truncate">
+                      {firstFloor.subTitle}
+                    </span>
+                  )}
                 </div>
 
                 {/* + btn */}
@@ -254,8 +326,7 @@ function Brands() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="gray"
-                    className="w-5 h-5"
-                  >
+                    className="w-5 h-5">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -266,77 +337,6 @@ function Brands() {
               </div>
 
               {/* filter box (isToggle == 1) */}
-              <div className="m-0 p-0 pb-[24px] box-border">
-                {/* 2층 배열 */}
-                <div>
-                  <ul className="m-0 p-0 max-h-[315px] text-[14px] overflow-y-hidden box-border list-none">
-                    {firstFloor.body?.map((secondFloor) => (
-                      <div key={secondFloor.name}>
-                        <li className="list-none">
-                          {/* 1st checkbox */}
-                          <label className="relative flex items-center cursor-pointer">
-                            <input
-                              className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
-                              type="checkbox"
-                              name="category1"
-                              value="shoes"
-                            />
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="white"
-                              strokeWidth="1.3"
-                              className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M4.5 12.75l6 6 9-13.5"
-                              />
-                            </svg>
-                          </label>
-
-                          <div className="m-0 pt-[16px] pb-[6px] pr-[25px] text-[14px] list-none">
-                            <span className="pl-2">{secondFloor.name}</span>
-                          </div>
-                        </li>
-                        <ul>
-                          {secondFloor.sub?.map((thirdFloor) => (
-                            <li key={thirdFloor.name}>
-                              <label className="relative flex items-center cursor-pointer">
-                                <input
-                                  className="w-[16px] h-[16px] overflow-hidden absolute clip-0 peer"
-                                  type="checkbox"
-                                  name="category1"
-                                  value="shoes"
-                                />
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="white"
-                                  strokeWidth="1.3"
-                                  className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M4.5 12.75l6 6 9-13.5"
-                                  />
-                                </svg>
-                              </label>
-                              <div className="m-0 pt-[16px] pb-[6px] pr-[25px] text-[14px] list-none">
-                                <span className="pl-2">{thirdFloor.name}</span>
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </ul>
-                </div>
-              </div>
             </div>
           ))}
         </form>
@@ -368,8 +368,7 @@ function Brands() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.2}
                   stroke="currentColor"
-                  className="w-6 h-6"
-                >
+                  className="w-6 h-6">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -385,8 +384,7 @@ function Brands() {
               {res?.data.map((e: any) => (
                 <div
                   key={e.brand}
-                  className="w-[25%] mx-0 my-[20px] py-0 px-[10px] box-border align-top inline-block relative transition 0.4s ease-in-out"
-                >
+                  className="w-[25%] mx-0 my-[20px] py-0 px-[10px] box-border align-top inline-block relative transition 0.4s ease-in-out">
                   <div className="bg-[#f4f4f4] rounded-[12px]">
                     <img src={e.imgUrl} alt="item" className="rounded-[12px]" />
                   </div>
