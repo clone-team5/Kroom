@@ -44,7 +44,7 @@ export default async function handler(
 
     try {
         const user = await client.user.findUnique({
-            where:{cleanEmail}
+            where:{email:cleanEmail}
         })
     
         if(user){
@@ -76,7 +76,5 @@ export default async function handler(
       },
     });
     res.status(200).send("회원가입이 완료 되었습니다.");
-  } catch (error) {
-    res.status(400).json(error);
-  }
+  
 }
