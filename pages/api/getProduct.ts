@@ -151,8 +151,8 @@ export default async function handler(
     // console.log(list['nameKr'], list['quickdlivery'],list['price']);
     console.log(list);
   }
-  console.log("count:::>" + data.length);
+  
   !data.length
     ? res.status(204).json({ result: "검색 결과가 없습니다." })
-    : res.status(201).json({ data });
+    : res.status(201).json({ data , nextPageNo:parseInt(pageNo)+1});
 }
