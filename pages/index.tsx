@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
@@ -25,37 +25,8 @@ const bannerImgs = [
   "https://kream-phinf.pstatic.net/MjAyMjEwMzFfOTMg/MDAxNjY3MTg2MTk5MTM2.le0H2sm8Vsjyk2aoF_BbqUfCirjiLRCW6BlxhPudRxgg.0VZBAg-l-Qx7zDxLq0oaoNZfuNMALZcreDnAcrFBGZMg.JPEG/a_417c5780398b486cafea53bc300a1e2b.jpg?type=m_2560",
 ];
 const Main = () => {
-  /* ~/api/getproduct?brands=${}&priceNum=${}&quickDelivery=${}&numOfRow=${}&pageNo=${} */
-  // const { data, isLoading } = useQuery(["products"], async () => {
-  //   const {
-  //     data: { data },
-  //   } = await axios.get(
-  //     `/api/getProduct?brands=${"Apple"}&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${4}&pageNo=${1}`
-  //   );
-  //   return data;
-  // });
-  // const fetchPage = ({ pageParam = 0 }) => {
-  //   // API
-  //   const { data } = await axios.get(
-  //     `/api/getProduct?brands=${"Apple"}&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${20}&pageNo=${1}`
-  //   );({ startIndex: pageParam });
-
-  //   // 다음 요청시 사용할 nextPage와 isLast
-  //   return {
-  //     result: data,
-  //     nextPage: pageParam + 1,
-  //     isLast: data.isLast,
-  //   };
-  // };
-  // const {} = useInfiniteQuery(
-  //   ["test"],
-  //   ({ pageParam = 1 }) => fetchPage(pageParam),
-  //   {
-  //     ...options,
-  //     getNextPageParam: (lastPage, allPages) => lastPage.nextCursor,
-  //     getPreviousPageParam: (firstPage, allPages) => firstPage.prevCursor,
-  //   }
-  // );
+  const callLimit = bannerImgs.length;
+  const [callCount, setCallCount] = useState(0);
   const { data, fetchNextPage } = useInfiniteQuery(
     ["projects"],
     async ({ pageParam = 1 }) => {
@@ -75,8 +46,9 @@ const Main = () => {
 
   const [ref, inView] = useInView();
   useEffect(() => {
-    if (inView) {
+    if (inView && callCount < callLimit + 1) {
       fetchNextPage();
+      setCallCount((cur) => cur + 1);
     }
   }, [inView]);
   useEffect(() => {
@@ -115,7 +87,7 @@ const Main = () => {
       {data?.pages.map((page, i) => (
         <Fragment key={i}>
           <Showwindow items={page.data} />
-          <img src={bannerImgs[i]} alt="" />
+          <img className="mt-3" src={bannerImgs[i]} alt="" />
         </Fragment>
       ))}
       <BrandFocus />

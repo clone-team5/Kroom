@@ -5,4 +5,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   res.json({ hi: "hello" });
+
+  // throw new Error();
 }
