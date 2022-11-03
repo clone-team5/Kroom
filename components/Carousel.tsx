@@ -48,7 +48,7 @@ const Carousel = ({ pictures }: Props) => {
     isDragging: false,
     isFlipped: false,
   });
-  const pictureCycler = cycler(pictures.length);
+  const pictureCycler = cycler(pictures?.length ?? 0);
   const handleChangeLeft = () => {
     setSelected((cur) => pictureCycler(cur - 1));
   };
@@ -111,7 +111,8 @@ const Carousel = ({ pictures }: Props) => {
       onMouseMove={() => {}}
       onDrag={handleDrag}
       onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}>
+      onDragEnd={handleDragEnd}
+    >
       {pictures.map((picture, i) => (
         <img
           key={picture.urls}

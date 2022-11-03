@@ -24,12 +24,12 @@ const Login = () => {
     handleSubmit,
     reset,
     formState: { errors, isValid },
-  } = useForm();
+  } = useForm({ mode: "onChange" });
   const onValid = async (body: FieldValues) => {
     console.log("inputs : ", body);
     // const res = await (await fetch("url")).json();
     // console.log(res);
-    const { data } = await axios.post("/api/user/signup", body);
+    const { data } = await axios.post("/api/user/login", body);
     setIsModalShow(true);
     setTimeout(() => {
       setIsModalShow(false);
@@ -101,7 +101,7 @@ const Login = () => {
               {...register(...regOptJoin.password())}
               type="password"
               className={cls(
-                "w-full pr-[30px] transition-all pl-0 border-b border-b-gray-200 border-0 outline-none focus:border-b focus:border-b-gray-800 focus:outline-none border-transparent focus:border-transparent focus:ring-0",
+                "w-full pr-[30px] transition-all pl-0 border-b border-0 outline-none focus:border-b focus:border-b-gray-800 focus:outline-none border-transparent focus:border-transparent focus:ring-0",
                 errors.password
                   ? "focus:border-b-red-500 border-b-red-500"
                   : "focus:border-b-gray-800 border-b-gray-200"
@@ -131,20 +131,20 @@ const Login = () => {
             </li>
           </ul>
           <div className="mt-10">
-            <a className="h-[62px] mb-2 border block rounded-2xl relative font-bold justify-center items-center cursor-pointer text-base">
+            <a className="h-[62px] mb-2 border flex rounded-2xl relative font-bold justify-center items-center cursor-pointer text-base">
               <div className="absolute bg-slate-400 w-6 h-6 left-[15px] top-1/2 -translate-y-1/2" />
               소셜로그인
             </a>
-            <a className="h-[62px] mb-2 border block rounded-2xl relative font-bold justify-center items-center cursor-pointer text-base">
+            <a className="h-[62px] mb-2 border flex rounded-2xl relative font-bold justify-center items-center cursor-pointer text-base">
               <div className="absolute bg-slate-400 w-6 h-6 left-[15px] top-1/2 -translate-y-1/2" />
               소셜로그인
             </a>
           </div>
         </div>
       </form>
-      {/* <Portal>
-        <Toast isShow={isModalShow} message={"hihi"} />
-      </Portal> */}
+      {/* <Portal> */}
+      <Toast isShow={isModalShow} message={"hihi"} />
+      {/* </Portal> */}
     </div>
   );
 };

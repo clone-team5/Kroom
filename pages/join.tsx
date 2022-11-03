@@ -3,13 +3,14 @@ import { useForm, FieldValues } from "react-hook-form";
 import { SetStateAction, Dispatch } from "react";
 import Portal from "../components/Portal";
 import Toast from "../components/Toast";
-import { JoinForm } from "../types";
+import { JoinForm, Size } from "../types";
 import { cls, regOptJoin } from "../utils";
 import icons from "../components/icons";
 import Checkbox from "../components/Checkbox";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import Modal from "../components/Modal";
 interface NavStates {
   isFadeout: boolean;
   to: string;
@@ -30,7 +31,8 @@ interface Props {
 const Join = () => {
   const router = useRouter();
   const [navStates, setNavStates] = useState({ isFadeout: true, to: "" });
-  const [isModalShow, setIsModalShow] = useState(false);
+  const [isToastShow, setIsToastShow] = useState(false);
+  const [isShowSize, setIsShowSize] = useState(false);
   const [okStates, setOkStates] = useState<OkStates>({
     age: [false, false],
     notification: [false, false, false],
@@ -43,14 +45,16 @@ const Join = () => {
     register,
     handleSubmit,
     reset,
+    setValue,
+    watch,
     formState: { errors, isValid },
   } = useForm<JoinForm>({ mode: "onChange" });
   const onValid = async (body: FieldValues) => {
     console.log("inputs : ", body);
     const { data } = await axios.post("/api/user/signup", body);
-    setIsModalShow(true);
+    setIsToastShow(true);
     setTimeout(() => {
-      setIsModalShow(false);
+      setIsToastShow(false);
     }, 3000);
     reset();
   };
@@ -69,6 +73,9 @@ const Join = () => {
   };
   const handleClickMinus = (mainName: keyof IsShowSub) => () => {
     setIsShowSub((cur) => ({ ...cur, [mainName]: false }));
+  };
+  const handleClickOkSize = () => {
+    setIsShowSize(false);
   };
   const handleClickMain =
     (mainName: keyof IsShowSub) => (e: MouseEvent<HTMLLabelElement>) => {
@@ -94,16 +101,19 @@ const Join = () => {
       [mainName]: newChecks,
     }));
   };
+  const size = watch("size");
   return (
     <div
       className={cls(
         "w-[1200px] mx-auto px-10 transition-all duration-300",
         navStates.isFadeout ? "opacity-0" : "opacity-100"
       )}
-      onTransitionEnd={handleTransitionEnd}>
+      onTransitionEnd={handleTransitionEnd}
+    >
       <form
         className="w-[400px] h-[756px] mx-auto pt-[60px] pb-40"
-        onSubmit={handleSubmit(onValid, onInValid)}>
+        onSubmit={handleSubmit(onValid, onInValid)}
+      >
         <div className="h-full">
           <h2 className="text-center pb-[42px] text-[32px]">회원가입</h2>
           <div className="pt-[10px] pb-[14px] h-20">
@@ -111,7 +121,8 @@ const Join = () => {
               className={cls(
                 "text-[13px] transition-colors",
                 errors.email ? "text-red-500" : "text-gray-800"
-              )}>
+              )}
+            >
               이메일 주소*
             </h3>
             <input
@@ -134,14 +145,15 @@ const Join = () => {
               className={cls(
                 "text-[13px] transition-colors",
                 errors.password ? "text-red-500" : "text-gray-800"
-              )}>
+              )}
+            >
               비밀번호*
             </h3>
             <input
               {...register(...regOptJoin.password())}
               type="password"
               className={cls(
-                "w-full pr-[30px] transition-all pl-0 border-b border-b-gray-200 border-0 outline-none focus:border-b focus:border-b-gray-800 focus:outline-none border-transparent focus:border-transparent focus:ring-0 placeholder:text-gray-300 focus:placeholder:text-transparent",
+                "w-full pr-[30px] transition-all pl-0 border-b border-0 outline-none focus:border-b focus:border-b-gray-800 focus:outline-none border-transparent focus:border-transparent focus:ring-0 placeholder:text-gray-300 focus:placeholder:text-transparent",
                 errors.password
                   ? "focus:border-b-red-500 border-b-red-500"
                   : "focus:border-b-gray-800 border-b-gray-200"
@@ -152,12 +164,16 @@ const Join = () => {
               {errors.password?.message as string}
             </p>
           </div>
-          <div className="pt-[10px] pb-[14px] h-20">
+          <div
+            className="pt-[10px] pb-[14px] h-20"
+            onClick={() => setIsShowSize(true)}
+          >
             <h3
               className={cls(
                 "text-[13px] transition-colors",
                 errors.password ? "text-red-500" : "text-gray-800"
-              )}>
+              )}
+            >
               신발 사이즈
             </h3>
             <label className="relative">
@@ -166,7 +182,7 @@ const Join = () => {
                 type="text"
                 disabled
                 className={cls(
-                  "w-full pr-[30px] transition-all pl-0 border-b border-b-gray-200 border-0 outline-none focus:border-b focus:border-b-gray-800 focus:outline-none border-transparent focus:border-transparent focus:ring-0 placeholder:text-gray-300 focus:placeholder:text-transparent cursor-pointer",
+                  "w-full pr-[30px] transition-all pl-0 border-b border-0 outline-none focus:border-b focus:border-b-gray-800 focus:outline-none border-transparent focus:border-transparent focus:ring-0 placeholder:text-gray-300 focus:placeholder:text-transparent cursor-pointer bg-white",
                   errors.password
                     ? "focus:border-b-red-500 border-b-red-500"
                     : "focus:border-b-gray-800 border-b-gray-200"
@@ -247,15 +263,53 @@ const Join = () => {
               className={cls(
                 "block w-full text-white h-full rounded-xl font-semibold",
                 isValid ? "bg-gray-900" : "bg-gray-200"
-              )}>
+              )}
+            >
               가입하기
             </button>
           </div>
         </div>
       </form>
-      {/* <Portal>
-        <Toast isShow={isModalShow} message={"hihi"} />
-      </Portal> */}
+      <Toast isShow={isToastShow} message={"hihi"} />
+      <Modal isShow={isShowSize} setIsShow={setIsShowSize}>
+        <div className="w-[448px] rounded-2xl bg-white">
+          <div className="h-[60px] pt-[18px] pb-[20px] px-[50px] flex justify-center items-center font-bold">
+            사이즈 선택
+          </div>
+          <div className="h-[270px] pt-[6px] px-[28px] grid grid-cols-3 gap-4 overflow-y-auto">
+            {[
+              220, 225, 230, 235, 240, 245, 250, 255, 260, 265, 270, 275, 280,
+              285, 290, 295, 300,
+            ].map((e) => (
+              <div
+                className={cls(
+                  "border rounded-xl h-[52px] flex justify-center items-center cursor-pointer",
+                  size === e
+                    ? "bg-gray-900 text-gray-100"
+                    : "bg-white text-gray-900"
+                )}
+                key={e}
+                onClick={() => {
+                  setValue("size", e as Size);
+                }}
+              >
+                {e}
+              </div>
+            ))}
+          </div>
+          <div className="h-[98px] pt-[24px] pb-[32px] px-[32px] flex justify-center items-center">
+            <div
+              onClick={handleClickOkSize}
+              className={cls(
+                "w-[120px] h-[42px] rounded-lg border flex justify-center items-center font-semibold text-xs cursor-pointer",
+                size ? "bg-gray-900 text-gray-100" : "bg-white text-gray-300"
+              )}
+            >
+              확인
+            </div>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
