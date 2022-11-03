@@ -79,6 +79,13 @@ const Main = () => {
       fetchNextPage();
     }
   }, [inView]);
+  useEffect(() => {
+    (async () => {
+      const res = await axios.get(`/api/test`);
+      console.log(res);
+      return res.data;
+    })();
+  }, []);
   return (
     <>
       <Carousel
