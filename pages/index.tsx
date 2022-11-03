@@ -6,8 +6,9 @@ import Carousel from "../components/Carousel";
 import BrandFocus from "../components/BrandFocus";
 import Showwindow from "../components/Showwindow";
 import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import Spinner from "../components/Spinner";
+
 const bannerImgs = [
   "https://kream-phinf.pstatic.net/MjAyMjEwMzFfNDYg/MDAxNjY3MTg1NDYyNjc0.2Vb7XJhsAeUUSbree2v99RMAcAG99BHoRpqtUMSxpKAg.VNOsl5UYTwzEu20AKVgdiwDuXhZYFli6dCg9St7GrbYg.JPEG/a_9a770fc5d86143a49dd2cb8b1fab7b72.jpg?type=m_2560",
   "https://kream-phinf.pstatic.net/MjAyMjExMDFfOTIg/MDAxNjY3MzAyMDE2ODYx.zMou_mnGPiLsORrtUnfdwxFbgl7PQyBRxnrOfeQ3ljgg.h9vf0OmEr_GSHR-Y7JXudfB9BqTyUcpKUdnyV7bpelUg.JPEG/a_412a8400e2bf4a409ff3ca77367e6ce3.jpg?type=m_2560",
@@ -32,7 +33,28 @@ const Main = () => {
     return data;
   });
   console.log(data?.slice(0, 4));
+  // const fetchPage = ({ pageParam = 0 }) => {
+  //   // API
+  //   const { data } = await axios.get(
+  //     `/api/getProduct?brands=${"Apple"}&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${20}&pageNo=${1}`
+  //   );({ startIndex: pageParam });
 
+  //   // 다음 요청시 사용할 nextPage와 isLast
+  //   return {
+  //     result: data,
+  //     nextPage: pageParam + 1,
+  //     isLast: data.isLast,
+  //   };
+  // };
+  // const {} = useInfiniteQuery(
+  //   ["test"],
+  //   ({ pageParam = 1 }) => fetchPage(pageParam),
+  //   {
+  //     ...options,
+  //     getNextPageParam: (lastPage, allPages) => lastPage.nextCursor,
+  //     getPreviousPageParam: (firstPage, allPages) => firstPage.prevCursor,
+  //   }
+  // );
   return (
     <div>
       <Carousel

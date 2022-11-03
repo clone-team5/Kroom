@@ -30,9 +30,9 @@ allowProtocolRelative: true,
 enforceHtmlBoundary: false
 */
 interface bodyTypes {
-    email: string,
-    password: string,
-    size: number
+  email: string;
+  password: string;
+  size: number;
 }
 export default async function handler(
   req: NextApiRequest,
@@ -64,4 +64,19 @@ export default async function handler(
     } catch (error) {
         res.status(400).json(error)
     }
+    const encPass = await bcrypt.hash(password, 10);
+    const nickname = email.split("@")[0];
+    await client.user.create({
+      data: {
+        email,
+        nickname,
+        // @ts-ignore
+        size,
+        password: encPass,
+      },
+    });
+    res.status(200).send("회원가입이 완료 되었습니다.");
+  } catch (error) {
+    res.status(400).json(error);
+  }
 }

@@ -7,8 +7,8 @@ import sanitizeHtml from "sanitize-html";
 import bcrypt from "bcryptjs"
 const secret_key = process.env.SECRET_KEY || ""
 interface reqBody {
-  email: string | undefined
-  password: string | undefined
+  email: string | undefined;
+  password: string | undefined;
 }
 
 export default async function handler(
@@ -16,7 +16,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { email, password }: reqBody = req.body;
-  // try {
+  try {
     if(!email||!password){
       throw new Error("아이디 혹은 비밀번호를 입력해 주세요")
     }
@@ -27,11 +27,6 @@ export default async function handler(
    const user = await client.user.findUnique({where:{email:cleanEmail}});
    const userId = user?.userId;
    const encPass = user?.password;
-
-  if(userId == undefined){
-    res.status(400).send("이메일 또는 패스워드가 일치하지 않습니다.");
-  };
-
   if(encPass !== undefined){
     const re = await bcrypt.compare(cleanPassword, encPass);
     if(!re){
@@ -58,7 +53,8 @@ export default async function handler(
   res.setHeader('Set-Cookie', `accessToken: ${accessToken} expires=1`);
   res.status(200).json({refreshToken});
 
-  // } catch (error) {
-  //   res.status(400).json({ error, result: "로그인에 실패하였습니다." });
-  // }
+  } catch (error) {
+    res.status(400).json({ error, result: "로그인에 실패하였습니다." });
+  }
 }
+
