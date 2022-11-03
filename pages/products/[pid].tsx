@@ -4,13 +4,23 @@ import { use, useEffect, useRef, useState } from "react";
 import icons from "../../components/icons";
 import useFixoluteBox from "../../hooks/useFixoluteBox";
 import { cls } from "../../utils";
+import { format, add } from "date-fns";
+import { ko } from "date-fns/locale";
+import { useRouter } from "next/router";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const Product = () => {
   const {
     refs: { fixsolute, limit },
     fixoluteStyle,
   } = useFixoluteBox();
-
+  const pid = 50119;
+  const { data, isLoading } = useQuery(["hi"], async () => {
+    const { data } = await axios.get(`/api/productDetail?pid=${pid}`);
+    return data;
+  });
+  console.log(data);
   return (
     <>
       <div className="w-[1280px] mx-auto px-10 pt-[30px] pb-40 h-[2120px]">
@@ -87,6 +97,32 @@ const Product = () => {
             ))}
           </div>
           <h3 className="h-[56px] pt-[39px] text-sm text-gray-900">배송정보</h3>
+          <div className="h-[70px] pt-[12px] pb-[18px] flex">
+            <div className="mr-[14px]">
+              <img
+                src="https://kream-phinf.pstatic.net/MjAyMTExMjFfMjU5/MDAxNjM3NDczNzU0MjA1.ON3pvFYAq_xSSaNWDgUWe1YfIx-C0fm91PDtcsUn3AEg.Q4EbbNWl_ua916jg0NQ0dWOS3h7W9eiiI2kK9YPWlgwg.PNG/a_120a84f036724d0d97a2343aafff4ecf.png"
+                width={40}
+                height={40}
+                alt=""
+              />
+            </div>
+            <div>
+              <div className="text-sm flex gap-1">
+                <p className="font-semibold">빠른배송 </p>
+                <p>5,000원</p>
+              </div>
+              <div className="text-sm text-gray-400">
+                지금 결제시{" "}
+                <span className="text-blue-600">
+                  내일{" "}
+                  {format(add(Date.now(), { days: 1 }), "M/d(eee)", {
+                    locale: ko,
+                  })}{" "}
+                  도착 예정
+                </span>
+              </div>
+            </div>
+          </div>
           <div className="h-[70px] pt-[12px] pb-[18px] flex">
             <div className="mr-[14px]">
               <img
