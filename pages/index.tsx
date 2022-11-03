@@ -26,14 +26,14 @@ const bannerImgs = [
 ];
 const Main = () => {
   /* ~/api/getproduct?brands=${}&priceNum=${}&quickDelivery=${}&numOfRow=${}&pageNo=${} */
-  const { data, isLoading } = useQuery(["products"], async () => {
-    const {
-      data: { data },
-    } = await axios.get(
-      `/api/getProduct?brands=${"Apple"}&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${4}&pageNo=${1}`
-    );
-    return data;
-  });
+  // const { data, isLoading } = useQuery(["products"], async () => {
+  //   const {
+  //     data: { data },
+  //   } = await axios.get(
+  //     `/api/getProduct?brands=${"Apple"}&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${4}&pageNo=${1}`
+  //   );
+  //   return data;
+  // });
   // const fetchPage = ({ pageParam = 0 }) => {
   //   // API
   //   const { data } = await axios.get(
@@ -56,18 +56,7 @@ const Main = () => {
   //     getPreviousPageParam: (firstPage, allPages) => firstPage.prevCursor,
   //   }
   // );
-  const {
-    status,
-    data: dataInfi,
-    error,
-    isFetching,
-    isFetchingNextPage,
-    isFetchingPreviousPage,
-    fetchNextPage,
-    fetchPreviousPage,
-    hasNextPage,
-    hasPreviousPage,
-  } = useInfiniteQuery(
+  const { data, fetchNextPage } = useInfiniteQuery(
     ["projects"],
     async ({ pageParam = 1 }) => {
       const res = await axios.get(
@@ -86,19 +75,7 @@ const Main = () => {
 
   const [ref, inView] = useInView();
   useEffect(() => {
-    console.log(dataInfi);
-    // (async () => {
-    //   const {
-    //     data: { data },
-    //   } = await axios.get(
-    //     `/api/getProduct?brands=${"Apple"}&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${20}&pageNo=${1}`
-    //   );
-    //   console.log(data);
-    // })();
-  }, [dataInfi]);
-  React.useEffect(() => {
     if (inView) {
-      console.log("hi");
       fetchNextPage();
     }
   }, [inView]);
@@ -128,12 +105,14 @@ const Main = () => {
           },
         ]}
       />
-      {dataInfi?.pages.map((page, i) => (
-        <Fragment key={i}>{<Showwindow items={page.data} />}</Fragment>
+      {data?.pages.map((page, i) => (
+        <Fragment key={i}>
+          <Showwindow items={page.data} />
+          <img src={bannerImgs[i]} alt="" />
+        </Fragment>
       ))}
       {/* <BrandFocus />
       <div>
-        <img src={bannerImgs[0]} alt="" />
       </div> */}
 
       <div ref={ref}>

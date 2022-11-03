@@ -55,7 +55,8 @@ export default async function handler(
         await client.user.create({
             data:{
                 email,
-                nickname,
+            nickname,
+                //@ts-ignore
                 size,
                 password: encPass
             }
