@@ -113,7 +113,7 @@ const Main = () => {
       ))}
       {/* <BrandFocus />
       <div>
-      </div>  */}
+      </div>*/}
 
       <div ref={ref}>
         <Banner />
