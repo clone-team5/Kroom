@@ -24,7 +24,7 @@ const Login = () => {
     handleSubmit,
     reset,
     formState: { errors, isValid },
-  } = useForm();
+  } = useForm({ mode: "onChange" });
   const onValid = async (body: FieldValues) => {
     console.log("inputs : ", body);
     // const res = await (await fetch("url")).json();
@@ -101,7 +101,7 @@ const Login = () => {
               {...register(...regOptJoin.password())}
               type="password"
               className={cls(
-                "w-full pr-[30px] transition-all pl-0 border-b border-b-gray-200 border-0 outline-none focus:border-b focus:border-b-gray-800 focus:outline-none border-transparent focus:border-transparent focus:ring-0",
+                "w-full pr-[30px] transition-all pl-0 border-b border-0 outline-none focus:border-b focus:border-b-gray-800 focus:outline-none border-transparent focus:border-transparent focus:ring-0",
                 errors.password
                   ? "focus:border-b-red-500 border-b-red-500"
                   : "focus:border-b-gray-800 border-b-gray-200"
@@ -142,9 +142,9 @@ const Login = () => {
           </div>
         </div>
       </form>
-      {/* <Portal>
-        <Toast isShow={isModalShow} message={"hihi"} />
-      </Portal> */}
+      {/* <Portal> */}
+      <Toast isShow={isModalShow} message={"hihi"} />
+      {/* </Portal> */}
     </div>
   );
 };
