@@ -30,7 +30,7 @@ export default async function handler(
   };
 
   if(encPass !== undefined){
-    const re = await bcrypt.compare(encPass, password);
+    const re = await bcrypt.compare(password, encPass);
     if(!re){
       res.status(400).send("이메일 또는 패스워드가 일치하지 않습니다.");
     }
