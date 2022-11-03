@@ -157,7 +157,7 @@ function Brands() {
       }&priceNum=${0}&quickDelivery=${"all"}&numOfRow=${16}&pageNo=${1}`
     );
     return data;
-  });
+  }); 
  */
   const router = useRouter();
   const brandName = router.query;
@@ -215,7 +215,8 @@ function Brands() {
               viewBox="0 0 24 24"
               strokeWidth={1}
               stroke="currentColor"
-              className="w-6 h-6">
+              className="w-6 h-6"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -248,7 +249,8 @@ function Brands() {
             {MyGroup.map((firstFloor) => (
               <div
                 key={firstFloor.title}
-                className="box-border border-solid border-b border-[#ebebeb]">
+                className="box-border border-solid border-b border-[#ebebeb]"
+              >
                 <div className="flex m-0 py-[16px] box-border justify-between items-center">
                   <div className="flex flex-column cursor-pointer">
                     {/* 카테고리 */}
@@ -278,7 +280,8 @@ function Brands() {
                                       viewBox="0 0 24 24"
                                       stroke="white"
                                       strokeWidth="1.3"
-                                      className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center">
+                                      className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center"
+                                    >
                                       <path
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
@@ -309,7 +312,8 @@ function Brands() {
                                           viewBox="0 0 24 24"
                                           stroke="white"
                                           strokeWidth="1.3"
-                                          className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center">
+                                          className="w-[16px] h-[16px] border peer-checked:bg-black flex justify-center items-center"
+                                        >
                                           <path
                                             strokeLinecap="round"
                                             strokeLinejoin="round"
@@ -345,7 +349,8 @@ function Brands() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="gray"
-                      className="w-5 h-5">
+                      className="w-5 h-5"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -387,7 +392,8 @@ function Brands() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.2}
                     stroke="currentColor"
-                    className="w-6 h-6">
+                    className="w-6 h-6"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
